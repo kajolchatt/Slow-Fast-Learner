@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 function Signup() {
   const history = useNavigate();
-  const [email, setEmail] = useState("");
+  const [username, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   async function submit(e) {
@@ -12,14 +12,14 @@ function Signup() {
     try {
       await axios
         .post("http://localhost:8000/signup", {
-          email,
+            username,
           password,
         })
         .then((res) => {
           if (res.data == "exist") {
             alert("User already exists");
           } else if (res.data == "notexist") {
-            history("/home", { state: { id: email } });
+            history("/home", { state: { id: username } });
           }
         })
         .catch((e) => {

@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 function Login() {
   const history = useNavigate();
-  const [email, setEmail] = useState("");
+  const [username, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   async function submit(e) {
@@ -12,12 +12,12 @@ function Login() {
     try {
       await axios
         .post("http://localhost:8000/", {
-          email,
+            username,
           password,
         })
         .then((res) => {
           if (res.data == "exist") {
-            history("/home", { state: { id: email } });
+            history("/home", { state: { id: username } });
           } else if (res.data == "notexist") {
             alert("User have not signed up!");
           }
