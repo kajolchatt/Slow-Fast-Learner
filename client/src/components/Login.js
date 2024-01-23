@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-
+import "../App.css"
 function Login() {
   const history = useNavigate();
   const [username, setEmail] = useState("");
@@ -13,7 +13,7 @@ function Login() {
       await axios
         .post("http://localhost:8000/", {
             username,
-          password,
+            password,
         })
         .then((res) => {
           if (res.data == "exist") {
@@ -41,14 +41,14 @@ function Login() {
             setEmail(e.target.value);
           }}
           placeholder="email"
-        ></input>
+        ></input> <br/>
         <input
           type="password"
           onChange={(e) => {
             setPassword(e.target.value);
           }}
           placeholder="password"
-        ></input>
+        ></input><br/>
         <input type="submit" onClick={submit} />
       </form>
 
