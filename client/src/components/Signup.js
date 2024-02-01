@@ -31,10 +31,10 @@ function Signup() {
     }
   }
   return (
-    <div className="login">
+    <div className="login" >
       <h1>Signup</h1>
 
-      <form action="POST">
+      <form action="POST" className="form">
         <input
           type="email"
           onChange={(e) => {
@@ -42,7 +42,7 @@ function Signup() {
           }}
           placeholder="email"
         ></input>
-        <br />
+        <br /><br/>
         <input
           type="password"
           onChange={(e) => {
@@ -50,7 +50,7 @@ function Signup() {
           }}
           placeholder="password"
         ></input>
-        <br />
+        <br /><br/>
         <input type="submit" onClick={submit} />
       </form>
       <br />

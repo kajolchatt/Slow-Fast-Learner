@@ -1,8 +1,18 @@
 .login{
   text-align: center;
   margin-top: 10%;
+  height: 700px;
+  width: 1000px;
+  margin: 5% auto;
+  background-color: rgb(194, 242, 255);
+  font-size: 30px;
 }
 
 .login h1{
+  font-size: 50px;
+
+  padding-top: 40px;
   color: rgb(9, 9, 113);
+}
+.login .form{
 }

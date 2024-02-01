@@ -34,21 +34,21 @@ function Login() {
     <div className="login">
       <h1>Login</h1>
 
-      <form action="POST">
+      <form action="POST" className="form">
         <input
           type="email"
           onChange={(e) => {
             setEmail(e.target.value);
           }}
           placeholder="email"
-        ></input> <br/>
+        ></input> <br/><br/>
         <input
           type="password"
           onChange={(e) => {
             setPassword(e.target.value);
           }}
           placeholder="password"
-        ></input><br/>
+        ></input><br/><br/>
         <input type="submit" onClick={submit} />
       </form>
 
