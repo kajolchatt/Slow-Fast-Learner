@@ -1,14 +1,19 @@
-const mysql = require("mysql");
-require('dotenv').config();
+const path = require('path');
+const dotenv = require('dotenv');
+const mysql = require('mysql');
 
-const DB_HOST = process.env.DB_HOST;
-const DB_USER = process.env.DB_USER;
-const DB_PASSWORD = process.env.DB_PASSWORD;
+const scriptDir = path.dirname(__filename);
+const dotenvPath = path.resolve(scriptDir, '.env');
+dotenv.config({ path: dotenvPath });
+
+const host = process.env.DB_HOST;
+const user = process.env.DB_USER;
+const password = process.env.DB_PASSWORD;
 
 const con = mysql.createConnection({
-  host: DB_HOST,
-  user: DB_USER,
-  password: DB_PASSWORD,
+  host: host,
+  user: user,
+  password: password,
   database: "slowfast",
 });
 

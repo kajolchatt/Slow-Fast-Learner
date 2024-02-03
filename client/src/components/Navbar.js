@@ -10,7 +10,7 @@ function Navbar() {
       <nav class="navbar bg-body-tertiary fixed-top">
         <div class="container-fluid">
           <img
-            src="https://www.rnsit.ac.in/wp-content/themes/twentyseventeen/webp/logo.webp"
+            src="https://www.rnsit.ac.in/wp-content/themes/rnsit/webp/logo.webp"
             style={inlinestyle}
           />
           <button
