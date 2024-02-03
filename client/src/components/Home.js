@@ -1,9 +1,19 @@
-import React,{useEffect,useState} from "react"
-import "../App.css"
-import {useLocation,Link} from "react-router-dom"
+import React,{useEffect,useState} from "react";
+import "../App.css";
+import {useLocation,Link} from "react-router-dom";
 import "./Home.css";
 function Home(){
-
+    const [name,setName]=useState("");
+    const [usn,setusn]=useState("");
+    const [pname,setpname]=useState("");
+    const [cgpa1,setCgpa1]=useState("");
+    const [cgpa2,setCgpa2]=useState("");
+    const [cgpa3,setCgpa3]=useState("");
+    const [cgpa4,setCgpa4]=useState("");
+    const [cgpa5,setCgpa5]=useState("");
+    const [cgpa6,setCgpa6]=useState("");
+    const [cgpa7,setCgpa7]=useState("");
+    const [cgpa8,setCgpa8]=useState("");
     const location=useLocation()
 
     return (
@@ -33,6 +43,7 @@ function Home(){
         <input type="text" id="cgpa7" placeholder="Enter Sem7 cgpa"/><br></br>
         <label htmlFor="cgpa8"><strong>Enter Sem8 cgpa</strong></label>
         <input type="text" id="cgpa8" placeholder="Enter Sem8 cgpa"/><br></br>
+        <button>Submit</button>
         </div>
         
         </div>
