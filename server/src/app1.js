@@ -1,3 +1,4 @@
+// require('./mysql')
 const express = require("express");
 const con = require("./config");
 const cors = require("cors");
@@ -7,28 +8,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.get("/", cors(), (req, res) => {});
-
 app.post("/", async (req, res) => {
-  const { username, password } = req.body;
+  const { username } = req.body;
 
   try {
-    con.query(
-      "SELECT * FROM users WHERE username=?",
-      [username],
-      (err, result) => {
-        if (err) {
-          console.log("Error connecting to mysql query", err.message);
-        }
-        if (result.length > 0) {
-          res.json("exist");
-        } else {
-          res.json("notexist");
-        }
-      }
-    );
+    const result = await queryAsync("SELECT * FROM users WHERE username=?", [username]);
+
+    if (result && result.length > 0) {
+      res.json("exist");
+    } else {
+      res.json("notexist");
+    }
   } catch (error) {
-    console.error("Error in try-catch block:", error.message);
+    console.error("Error in login:", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
@@ -41,40 +33,36 @@ app.post("/signup", async (req, res) => {
   };
 
   try {
-    con.query(
-      "SELECT * FROM users WHERE username=?",
-      [username],
-      (err, result) => {
-        if (err) {
-          console.log("Error connecting to mysql query", err.message);
-        }
-        if (result.length > 0) {
-          res.json("exist");
-        } else {
-          res.json("notexist");
-          con.query(
-            "INSERT INTO users SET ?",
-            data,
-            (insertErr, insertResult) => {
-              if (insertErr) {
-                console.error(
-                  "Error inserting user into MySQL:",
-                  insertErr.message
-                );
-              } else {
-                console.log("User inserted into MySQL:", insertResult);
-                res.json("user inserted");
-              }
-            }
-          );
-        }
-      }
-    );
+    const checkResult = await queryAsync("SELECT * FROM users WHERE username=?", [username]);
+
+    if (checkResult && checkResult.length > 0) {
+      res.json("exist");
+    } else {
+      
+      await queryAsync("INSERT INTO users SET ?", data);
+      console.log("User inserted into MySQL:", data);
+      res.json("notexist")
+    }
   } catch (error) {
-    console.error("Error in try-catch block:", error.message);
+    console.error("Error in signup:", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-app.listen(8000, () => {
-  console.log("port connected");
+
+async function queryAsync(sql, values) {
+  return new Promise((resolve, reject) => {
+    con.query(sql, values, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+}
+
+const PORT = process.env.PORT || 8000;
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
