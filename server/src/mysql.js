@@ -24,7 +24,7 @@ con.query("USE slowfast", (err) => {
       }
 
       // Close the MySQL connection
-      con.end();
+      // con.end();
     }
   );
 });
