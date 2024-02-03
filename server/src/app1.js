@@ -1,4 +1,3 @@
-// require('./mysql')
 const express = require("express");
 const con = require("./config");
 const cors = require("cors");
@@ -38,10 +37,9 @@ app.post("/signup", async (req, res) => {
     if (checkResult && checkResult.length > 0) {
       res.json("exist");
     } else {
-      
       await queryAsync("INSERT INTO users SET ?", data);
       console.log("User inserted into MySQL:", data);
-      res.json("notexist")
+      res.json("notexist");
     }
   } catch (error) {
     console.error("Error in signup:", error.message);
