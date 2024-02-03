@@ -1,4 +1,3 @@
-require("./mysql");
 const express = require("express");
 const con = require("./config");
 const cors = require("cors");
@@ -8,12 +7,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.get("/", cors(), (req, res) => {
-  res.send("Hello, this is the root endpoint!");
-});
-
 app.post("/", async (req, res) => {
-  const { username, password } = req.body;
+  const { username } = req.body;
 
   try {
     const result = await queryAsync("SELECT * FROM users WHERE username=?", [username]);
@@ -24,7 +19,7 @@ app.post("/", async (req, res) => {
       res.json("notexist");
     }
   } catch (error) {
-    console.error("Error in try-catch block:", error.message);
+    console.error("Error in login:", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
@@ -37,20 +32,17 @@ app.post("/signup", async (req, res) => {
   };
 
   try {
-    const result = await queryAsync("SELECT * FROM users WHERE username=?", [username]);
+    const checkResult = await queryAsync("SELECT * FROM users WHERE username=?", [username]);
 
-    if (result && result.length > 0) {
+    if (checkResult && checkResult.length > 0) {
       res.json("exist");
     } else {
+      await queryAsync("INSERT INTO users SET ?", data);
+      console.log("User inserted into MySQL:", data);
       res.json("notexist");
-
-      const insertResult = await queryAsync("INSERT INTO users SET ?", data);
-
-      console.log("User inserted into MySQL:", insertResult);
-      res.json("user inserted");
     }
   } catch (error) {
-    console.error("Error in try-catch block:", error.message);
+    console.error("Error in signup:", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
@@ -67,6 +59,8 @@ async function queryAsync(sql, values) {
   });
 }
 
-app.listen(8000, () => {
-  console.log("port connected");
+const PORT = process.env.PORT || 8000;
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
