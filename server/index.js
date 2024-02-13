@@ -1,4 +1,6 @@
 require('./src/mysql')
 require('./src/app1')
 require('./src/student')
+require('./src/marks')
+require('./src/project')
 require('./src/homepage')

@@ -27,10 +27,12 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/signup", async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, userid, type } = req.body;
   const data = {
     username: username,
     password: password,
+    userid: userid,
+    type: type,
   };
 
   try {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import "../App.css";
@@ -8,7 +8,8 @@ function Signup() {
   const history = useNavigate();
   const [username, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [type, setType] = useState("");
+  const [userid, setUserid] = useState("");
   async function submit(e) {
     e.preventDefault();
     try {
@@ -16,9 +17,11 @@ function Signup() {
         .post("http://localhost:8000/signup", {
           username,
           password,
+          userid,
+          type,
         })
         .then((res) => {
-          if (res.data == "exist") {
+          if (res.data === "exist") {
             alert("User already exists");
           } else if (res.data === "notexist") {
             history("/login");
@@ -56,6 +59,24 @@ function Signup() {
             }}
             placeholder="password"
           ></input>
+          <br />
+          <br />
+          <input
+            type="text"
+            onChange={(e) => {
+              setUserid(e.target.value);
+            }}
+            placeholder="userId->FacultyId or Usn"
+          ></input>
+          <br />
+          <br />
+          <input
+            type="text"
+            onChange={(e) => {
+              setType(e.target.value);
+            }}
+            placeholder="Enter type"
+          />
           <br />
           <br />
           <input type="submit" onClick={submit} />
