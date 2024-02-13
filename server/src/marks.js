@@ -11,13 +11,24 @@ con.query("USE slowfast", (err) => {
 
   // Create the users table
   con.query(
-    `CREATE TABLE IF NOT EXISTS student (
-            USN VARCHAR(255) NOT NULL PRIMARY KEY,
+    `CREATE TABLE IF NOT EXISTS marks (
+            USN VARCHAR(255) ,
             NAME VARCHAR(255) NOT NULL,
-            EMAIL VARCHAR(255) NOT NULL,
-            PHONE_NUMBER VARCHAR(255) NOT NULL,
-            BATCH INT NOT NULL,
-            CURRENT_SEMESTER INT NOT NULL
+            SEM1 INTEGER DEFAULT 0,
+            SEM2 INTEGER DEFAULT 0,
+            SEM3 INTEGER DEFAULT 0,
+            SEM4 INTEGER DEFAULT 0,
+            SEM5 INTEGER DEFAULT 0,
+            SEM6 INTEGER DEFAULT 0,
+            SEM7 INTEGER DEFAULT 0,
+            SEM8 INTEGER DEFAULT 0,
+            SUB1 INTEGER DEFAULT 0,
+            SUB2 INTEGER DEFAULT 0,
+            SUB3 INTEGER DEFAULT 0,
+            SUB4 INTEGER DEFAULT 0,
+            SUB5 INTEGER DEFAULT 0,
+            FOREIGN KEY (USN) REFERENCES STUDENT(USN)ON DELETE CASCADE,
+            PRIMARY KEY(USN,NAME)
         )`,
     (err, result) => {
       if (err) {
