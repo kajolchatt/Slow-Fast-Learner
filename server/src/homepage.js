@@ -16,5 +16,5 @@ app.post('/home',(req,res)=>{
     else{
       res.send("values inserted");
     }
-  });
+  }); 
 });

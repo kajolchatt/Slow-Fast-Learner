@@ -1,0 +1,19 @@
+body{
+    background-color: whitesmoke;
+}
+.ani-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    font-size: 60px;
+    color: rgb(22, 22, 93);
+}
+.btn-next{
+    margin-left: 50%;
+    margin-top: 20px;
+    background-color: rgb(255, 104, 48);
+    border: 2px solid rgb(255, 115, 0);
+    border-radius: 2px;
+    font-size: 20px;
+}

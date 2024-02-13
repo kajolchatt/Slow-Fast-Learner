@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import "../App.css"
+import "../App.css";
+import ImageBg from "./ImageBg";
+import Navbar from "./Navbar";
 function Login() {
   const history = useNavigate();
   const [username, setEmail] = useState("");
@@ -11,9 +13,9 @@ function Login() {
     e.preventDefault();
     try {
       await axios
-        .post("http://localhost:8000/", {
-            username,
-            password,
+        .post("http://localhost:8000/login", {
+          username,
+          password,
         })
         .then((res) => {
           if (res.data == "exist") {
@@ -31,32 +33,40 @@ function Login() {
     }
   }
   return (
-    <div className="login">
-      <h1>Login</h1>
+    <>
+      <Navbar />
+      <ImageBg />
+      <div className="login">
+        <h1>Login</h1>
 
-      <form action="POST" className="form">
-        <input
-          type="email"
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-          placeholder="email"
-        ></input> <br/><br/>
-        <input
-          type="password"
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-          placeholder="password"
-        ></input><br/><br/>
-        <input type="submit" onClick={submit} />
-      </form>
+        <form action="POST" className="form">
+          <input
+            type="email"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            placeholder="email"
+          ></input>{" "}
+          <br />
+          <br />
+          <input
+            type="password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            placeholder="password"
+          ></input>
+          <br />
+          <br />
+          <input type="submit" onClick={submit} />
+        </form>
 
-      <br />
-      <p>OR</p>
-      <br />
-      <Link to="/signup">Signup page</Link>
-    </div>
+        <br />
+        <p>OR</p>
+        <br />
+        <Link to="/signup">Signup page</Link>
+      </div>
+    </>
   );
 }
 export default Login;

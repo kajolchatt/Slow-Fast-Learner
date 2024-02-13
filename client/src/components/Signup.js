@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import "../App.css"
+import "../App.css";
+import ImageBg from "./ImageBg";
+import Navbar from "./Navbar";
 function Signup() {
   const history = useNavigate();
   const [username, setEmail] = useState("");
@@ -12,14 +14,14 @@ function Signup() {
     try {
       await axios
         .post("http://localhost:8000/signup", {
-            username,
+          username,
           password,
         })
         .then((res) => {
           if (res.data == "exist") {
             alert("User already exists");
           } else if (res.data === "notexist") {
-            history("/");
+            history("/login");
           }
         })
         .catch((e) => {
@@ -31,33 +33,39 @@ function Signup() {
     }
   }
   return (
-    <div className="login" >
-      <h1>Signup</h1>
+    <>
+      <Navbar />
+      <ImageBg />
+      <div className="login">
+        <h1>Signup</h1>
 
-      <form action="POST" className="form">
-        <input
-          type="email"
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-          placeholder="email"
-        ></input>
-        <br /><br/>
-        <input
-          type="password"
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-          placeholder="password"
-        ></input>
-        <br /><br/>
-        <input type="submit" onClick={submit} />
-      </form>
-      <br />
-      <p>OR</p>
-      <br />
-      <Link to="/">Login page</Link>
-    </div>
+        <form action="POST" className="form">
+          <input
+            type="email"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            placeholder="email"
+          ></input>
+          <br />
+          <br />
+          <input
+            type="password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            placeholder="password"
+          ></input>
+          <br />
+          <br />
+          <input type="submit" onClick={submit} />
+        </form>
+        <br />
+        <p>OR</p>
+        <br />
+        <Link to="/login">Login page</Link>
+      </div>
+    </>
   );
 }
 export default Signup;

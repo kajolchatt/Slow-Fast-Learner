@@ -7,11 +7,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.post("/", async (req, res) => {
+app.post("/login", async (req, res) => {
   const { username } = req.body;
 
   try {
-    const result = await queryAsync("SELECT * FROM users WHERE username=?", [username]);
+    const result = await queryAsync("SELECT * FROM users WHERE username=?", [
+      username,
+    ]);
 
     if (result && result.length > 0) {
       res.json("exist");
@@ -32,7 +34,10 @@ app.post("/signup", async (req, res) => {
   };
 
   try {
-    const checkResult = await queryAsync("SELECT * FROM users WHERE username=?", [username]);
+    const checkResult = await queryAsync(
+      "SELECT * FROM users WHERE username=?",
+      [username]
+    );
 
     if (checkResult && checkResult.length > 0) {
       res.json("exist");
@@ -59,7 +64,6 @@ async function queryAsync(sql, values) {
   });
 }
 
-
 // *************************************HOMEPAGE*************************************************************************************
 const PORT = process.env.PORT || 8000;
 
@@ -67,5 +71,4 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-
-module.exports={express,con,cors,app};
+module.exports = { express, con, cors, app };
