@@ -12,13 +12,6 @@ function Home() {
   const [sem, setSem] = useState("");
   const [otherskills, setOtherskills] = useState("");
   const [cgpa1, setCgpa1] = useState("0");
-  const [cgpa2, setCgpa2] = useState("0");
-  const [cgpa3, setCgpa3] = useState("0");
-  const [cgpa4, setCgpa4] = useState("0");
-  const [cgpa5, setCgpa5] = useState("0");
-  const [cgpa6, setCgpa6] = useState("0");
-  const [cgpa7, setCgpa7] = useState("0");
-  const [cgpa8, setCgpa8] = useState("0");
   const [sub1, setSub1] = useState("0");
   const [sub2, setSub2] = useState("0");
   const [sub3, setSub3] = useState("0");
@@ -42,13 +35,6 @@ function Home() {
       batch: batch,
       sem: sem,
       sem1: cgpa1,
-      sem2: cgpa2,
-      sem3: cgpa3,
-      sem4: cgpa4,
-      sem5: cgpa5,
-      sem6: cgpa6,
-      sem7: cgpa7,
-      sem8: cgpa8,
       sub1: sub1,
       sub2: sub2,
       sub3: sub3,
@@ -223,98 +209,14 @@ function Home() {
           <br></br>
           <h2>Academic Details</h2>
           <label htmlFor="cgpa1">
-            <strong>Enter Sem1 cgpa</strong>
+            <strong>Enter cgpa</strong>
           </label>
           <input
             type="text"
             id="cgpa1"
-            placeholder="Enter Sem1 cgpa"
+            placeholder="Enter cgpa"
             onChange={(event) => {
               setCgpa1(event.target.value);
-            }}
-          />
-          <br></br>
-          <label htmlFor="cgpa2">
-            <strong>Enter Sem2 cgpa</strong>
-          </label>
-          <input
-            type="text"
-            id="cgpa2"
-            placeholder="Enter Sem2 cgpa"
-            onChange={(event) => {
-              setCgpa2(event.target.value);
-            }}
-          />
-          <br></br>
-          <label htmlFor="cgpa2">
-            <strong>Enter Sem3 cgpa</strong>
-          </label>
-          <input
-            type="text"
-            id="cgpa3"
-            placeholder="Enter Sem3 cgpa"
-            onChange={(event) => {
-              setCgpa3(event.target.value);
-            }}
-          />
-          <br></br>
-          <label htmlFor="cgpa4">
-            <strong>Enter Sem4 cgpa</strong>
-          </label>
-          <input
-            type="text"
-            id="cgpa4"
-            placeholder="Enter Sem4 cgpa"
-            onChange={(event) => {
-              setCgpa4(event.target.value);
-            }}
-          />
-          <br></br>
-          <label htmlFor="cgpa5">
-            <strong>Enter Sem5 cgpa</strong>
-          </label>
-          <input
-            type="text"
-            id="cgpa5"
-            placeholder="Enter Sem5 cgpa"
-            onChange={(event) => {
-              setCgpa5(event.target.value);
-            }}
-          />
-          <br></br>
-          <label htmlFor="cgpa6">
-            <strong>Enter Sem6 cgpa</strong>
-          </label>
-          <input
-            type="text"
-            id="cgpa6"
-            placeholder="Enter Sem6 cgpa"
-            onChange={(event) => {
-              setCgpa6(event.target.value);
-            }}
-          />
-          <br></br>
-          <label htmlFor="cgpa7">
-            <strong>Enter Sem7 cgpa</strong>
-          </label>
-          <input
-            type="text"
-            id="cgpa7"
-            placeholder="Enter Sem7 cgpa"
-            onChange={(event) => {
-              setCgpa7(event.target.value);
-            }}
-          />
-          <br></br>
-          <label htmlFor="cgpa8">
-            <strong>Enter Sem8 cgpa</strong>
-          </label>
-          <input
-            type="text"
-            id="cgpa8"
-            placeholder="Enter Sem8 cgpa"
-            onChange={(event) => {
-              setCgpa8(event.target.value);
             }}
           />
           <br></br>

@@ -46,3 +46,4 @@ print(f'Predicted class for user input: {user_pred[0]}')
 
 # Save the trained model to a file
 joblib.dump(model, 'trained_model.joblib')
+ 
