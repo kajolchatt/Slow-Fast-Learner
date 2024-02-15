@@ -9,7 +9,7 @@ con.query("USE slowfast", (err) => {
 
   console.log("Using slowfast database");
 
-  // Create the users table
+  // Create the student table
   con.query(
     `CREATE TABLE IF NOT EXISTS student (
             USN VARCHAR(255) NOT NULL PRIMARY KEY,
@@ -21,9 +21,9 @@ con.query("USE slowfast", (err) => {
         )`,
     (err, result) => {
       if (err) {
-        console.error("Error creating users table:", err.message);
+        console.error("Error creating student table:", err.message);
       } else {
-        console.log("Users table created or already exists");
+        console.log("student table created or already exists");
       }
 
       // Close the MySQL connection

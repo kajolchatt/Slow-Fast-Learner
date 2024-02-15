@@ -10,7 +10,7 @@ function Home() {
   const [email, setemail] = useState("");
   const [batch, setBatch] = useState("");
   const [sem, setSem] = useState("");
-  const [otherskills, setOtherskills] = useState("");
+  const [activity, setActivity] = useState("");
   const [cgpa1, setCgpa1] = useState("0");
   const [sub1, setSub1] = useState("0");
   const [sub2, setSub2] = useState("0");
@@ -46,6 +46,7 @@ function Home() {
       project3: project3,
       project4: project4,
       project5: project5,
+      activity:activity,
     }).then(() => {
       console.log("Success");
     });
@@ -87,7 +88,7 @@ function Home() {
             <strong>Enter Phone Number</strong>
           </label>
           <input
-            type="number"
+            type="text"
             id="phn"
             placeholder="Enter Phone Number"
             onChange={(event) => {
@@ -287,15 +288,15 @@ function Home() {
           <br />
           <br />
           <h3>Other Skills</h3>
-          <label htmlFor="otherskill">
+          <label htmlFor="activity">
             <strong>Enter Other Skills</strong>
           </label>
           <input
             type="text"
-            id="otherskills"
+            id="activity"
             placeholder="Enter other skills"
             onChange={(event) => {
-              setOtherskills(event.target.value);
+              setActivity(event.target.value);
             }}
           />
           <br></br>

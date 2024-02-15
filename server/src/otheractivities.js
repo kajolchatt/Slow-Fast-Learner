@@ -9,25 +9,18 @@ con.query("USE slowfast", (err) => {
 
   console.log("Using slowfast database");
 
-  // Create the marks table
+  // Create the ohteractivities table
   con.query(
-    `CREATE TABLE IF NOT EXISTS marks (
-            USN VARCHAR(255) ,
-            NAME VARCHAR(255) NOT NULL,
-            SEM1 INTEGER DEFAULT 0,
-            SUB1 INTEGER DEFAULT 0,
-            SUB2 INTEGER DEFAULT 0,
-            SUB3 INTEGER DEFAULT 0,
-            SUB4 INTEGER DEFAULT 0,
-            SUB5 INTEGER DEFAULT 0,
-            FOREIGN KEY (USN) REFERENCES STUDENT(USN)ON DELETE CASCADE,
-            PRIMARY KEY(USN,NAME)
+    `CREATE TABLE IF NOT EXISTS otheractivities (
+        USN VARCHAR(255) PRIMARY KEY,
+        ACTIVITY_NAME VARCHAR(255),
+        FOREIGN KEY(USN)REFERENCES student(USN)ON DELETE CASCADE
         )`,
     (err, result) => {
       if (err) {
         console.error("Error creating users table:", err.message);
       } else {
-        console.log("marks table created or already exists");
+        console.log("otheractivities table created or already exists");
       }
 
       // Close the MySQL connection
@@ -35,3 +28,12 @@ con.query("USE slowfast", (err) => {
     }
   );
 });
+
+
+
+
+
+
+
+
+   
