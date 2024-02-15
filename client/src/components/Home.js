@@ -46,9 +46,37 @@ function Home() {
       project3: project3,
       project4: project4,
       project5: project5,
-      activity:activity,
+      activity: activity,
     }).then(() => {
       console.log("Success");
+    }).catch((err)=>{
+      console.log(err)
+    });
+
+    Axios.post("http://localhost:5000/api/predict", {
+      CGPA: parseFloat(cgpa1),
+      IAMARKS_SUB1: parseInt(sub1),
+      IAMARKS_SUB2: parseInt(sub2),
+      IAMARKS_SUB3: parseInt(sub3),
+      IAMARKS_SUB4: parseInt(sub4),
+      IAMARKS_SUB5: parseInt(sub5),
+      NUMBER_PROJECT: numberOfProjects,
+      INTERNSHIP: 0,
+      BACKLOGS: 0,
+      EXTRA_ACTIVITIES: 1,//activity,
+    }).then((response) => {
+      const prediction = response.data.prediction;
+      console.log("Prediction:", prediction);
+
+      // Now send the prediction to your Node.js backend to store in the database
+      Axios.post("http://localhost:8000/store-prediction", {
+        prediction:prediction,
+        usn:usn,
+      }).then(() => {
+        console.log("Prediction stored in MySQL");
+      });
+    }).catch((err)=>{
+      console.log("error",err.message)
     });
   };
 
