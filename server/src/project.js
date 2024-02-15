@@ -20,7 +20,17 @@ con.query('use slowfast',(err)=>{
     PROJECT3 VARCHAR(255) DEFAULT 0,
     PROJECT4 VARCHAR(255) DEFAULT 0,
     PROJECT5 VARCHAR(255) DEFAULT 0
-  )`)
+  )`,(err, result) => {
+    if (err) {
+      console.error("Error creating project table:", err.message);
+    } else {
+      console.log("project table created or already exists");
+    }
+
+    // Close the MySQL connection
+    // con.end();
+  }
+);
 })
 
 

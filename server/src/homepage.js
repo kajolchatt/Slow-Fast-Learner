@@ -30,35 +30,53 @@ app.post('/home',(req,res)=>{
   const project3=req.body.project3;
   const project4=req.body.project4;
   const project5=req.body.project5;
+  const activity=req.body.activity;
 
 
 
-  con.query('INSERT INTO student (USN,NAME,EMAIL,PHONE_NUMBER,BATCH,CURRENT_SEMESTER) VALUES (?,?,?,?,?,?)',[usn,name,email,pno,batch,sem],(err,result)=>{
-    if(err){
+  let responsesSent = 0;
+
+  function sendResponseIfFinished() {
+      responsesSent++;
+      if (responsesSent === 4) { // Assuming you have three queries
+          res.send("values inserted");
+      }
+  }
+
+  con.query('INSERT INTO student (USN,NAME,EMAIL,PHONE_NUMBER,BATCH,CURRENT_SEMESTER) VALUES (?,?,?,?,?,?)', [usn, name, email, pno, batch, sem], (err, result) => {
+      if (err) {
+          console.log(err);
+      } else {
+          sendResponseIfFinished();
+      }
+  });
+
+  con.query('INSERT INTO marks (USN,NAME,SEM1,SEM2,SEM3,SEM4,SEM5,SEM6,SEM7,SEM8,SUB1,SUB2,SUB3,SUB4,SUB5) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [usn, name, sem1, sem2, sem3, sem4, sem5, sem6, sem7, sem8, sub1, sub2, sub3, sub4, sub5], (err, result) => {
+      if (err) {
+          console.log(err);
+      } else {
+          sendResponseIfFinished();
+      }
+  });
+
+  con.query(`INSERT INTO project (USN,NO_OF_PROJECT,PROJECT1,PROJECT2,PROJECT3,PROJECT4,PROJECT5) VALUES (?,?,?,?,?,?,?)`, [usn, numberOfProjects, project1, project2, project3, project4, project5], (err, result) => {
+      if (err) {
+          console.log(err);
+      } else {
+          sendResponseIfFinished();
+      }
+  });
+
+  con.query(`INSERT INTO otheractivities (USN,ACTIVITY_NAME) VALUES (?,?)`,[usn,activity],(err,result)=>{
+    if(err)
+    {
       console.log(err);
     }
     else{
-      res.send("values inserted");
+      sendResponseIfFinished();
     }
   });
-  con.query('INSERT INTO marks (USN,NAME,SEM1,SEM2,SEM3,SEM4,SEM5,SEM6,SEM7,SEM8,SUB1,SUB2,SUB3,SUB4,SUB5) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',[usn,name,sem1,sem2,sem3,sem4,sem5,sem6,sem7,sem8,sub1,sub2,sub3,sub4,sub5],(err,result)=>{
-    if(err){
-      console.log(err);
-    }
-    else{
-      res.send("values inserted");
-    }
-  })
 
-con.query(`INSERT INTO project (USN,NO_OF_PROJECT,PROJECT1,PROJECT2,PROJECT3,PROJECT4,PROJECT5) VALUES (?,?,?,?,?,?,?)`,[usn,numberOfProjects,project1,project2,project3,project4,project5],(err,result)=>{
-  if(err)
-  {
-    console.log(err);
-  }
-  else{
-    res.send("values inserted");
-  }
-})
 });
 
 

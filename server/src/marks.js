@@ -9,7 +9,7 @@ con.query("USE slowfast", (err) => {
 
   console.log("Using slowfast database");
 
-  // Create the users table
+  // Create the marks table
   con.query(
     `CREATE TABLE IF NOT EXISTS marks (
             USN VARCHAR(255) ,
@@ -34,7 +34,7 @@ con.query("USE slowfast", (err) => {
       if (err) {
         console.error("Error creating users table:", err.message);
       } else {
-        console.log("Users table created or already exists");
+        console.log("marks table created or already exists");
       }
 
       // Close the MySQL connection
