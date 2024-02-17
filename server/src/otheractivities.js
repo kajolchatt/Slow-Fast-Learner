@@ -13,7 +13,10 @@ con.query("USE slowfast", (err) => {
   con.query(
     `CREATE TABLE IF NOT EXISTS otheractivities (
         USN VARCHAR(255) PRIMARY KEY,
+        ACTIVITY INT,
         ACTIVITY_NAME VARCHAR(255),
+        INTERNSHIP INT,
+        INTERNSHIP_DOMAIN VARCHAR(255),
         FOREIGN KEY(USN)REFERENCES student(USN)ON DELETE CASCADE
         )`,
     (err, result) => {

@@ -3,6 +3,8 @@ import "../App.css";
 import { useLocation, Link } from "react-router-dom";
 import "./Home.css";
 import Axios from "axios";
+import ImageBg from "./ImageBg";
+import Navbar from "./Navbar";
 function Home() {
   const [name, setName] = useState("");
   const [usn, setusn] = useState("");
@@ -11,6 +13,7 @@ function Home() {
   const [batch, setBatch] = useState("");
   const [sem, setSem] = useState("");
   const [activity, setActivity] = useState("");
+  const[activityName,setActivityName]=useState("");
   const [cgpa1, setCgpa1] = useState("0");
   const [sub1, setSub1] = useState("0");
   const [sub2, setSub2] = useState("0");
@@ -25,6 +28,9 @@ function Home() {
   const [project3, setProject3] = useState("");
   const [project4, setProject4] = useState("");
   const [project5, setProject5] = useState("");
+  const [internship, setInternship] = useState("");
+  const [internshipName, setInternshipName] = useState("");
+  const[backlog,setBacklog]=useState("");
 
   const displayInfo = () => {
     Axios.post("http://localhost:8000/home", {
@@ -47,6 +53,10 @@ function Home() {
       project4: project4,
       project5: project5,
       activity:activity,
+      internship:internship,
+      internshipName:internshipName,
+      activityName:activityName,
+      backlog:backlog
     }).then(() => {
       console.log("Success");
     });
@@ -54,6 +64,8 @@ function Home() {
 
   return (
     <>
+    <Navbar />
+      <ImageBg />
       <div className="homepage">
         <h1>Hello {location.state.id} and welcome to the home</h1>
         <h1>Fill up your details</h1>
@@ -220,6 +232,21 @@ function Home() {
               setCgpa1(event.target.value);
             }}
           />
+           <label htmlFor="backlog">
+            <strong>Any backlogs??</strong>
+          </label>
+          <input
+            type="text"
+            id="backlog"
+            placeholder="Enter yes or no"
+            onChange={(event) => {
+              if (event.target.value.toUpperCase() === "NO") {
+                  setBacklog(0);}
+              else{
+                setBacklog(1);
+              }
+            }}
+          />
           <br></br>
           <h2>Enter IA Marks</h2>
           <label htmlFor="sub1">
@@ -285,6 +312,7 @@ function Home() {
               setSub5(event.target.value);
             }}
           />{" "}
+         
           <br />
           <br />
           <h3>Other Skills</h3>
@@ -294,11 +322,27 @@ function Home() {
           <input
             type="text"
             id="activity"
-            placeholder="Enter other skills"
+            placeholder="Enter other skills (if not write no)"
             onChange={(event) => {
-              setActivity(event.target.value);
+              if (event.target.value.toUpperCase() === "NO") {
+                  setActivity(0);
+                  setActivityName("");}
+              else{
+                  setActivity(1);
+                  setActivityName(event.target.value);
+              }
             }}
           />
+          <label htmlFor="internship">Are you doing any Internship??</label>
+          <input type="text" id="internship" placeholder="Enter **no** if none else enter internship domain" onChange={(event)=>{
+            if (event.target.value.toUpperCase() === "NO") {
+              setInternship(0);
+              setInternshipName("");
+          } else {
+              setInternship(1);
+              setInternshipName(event.target.value);
+          }
+          }}/>
           <br></br>
           <button onClick={displayInfo}>Submit</button>
         </div>

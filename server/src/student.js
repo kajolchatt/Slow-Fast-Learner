@@ -17,7 +17,8 @@ con.query("USE slowfast", (err) => {
             EMAIL VARCHAR(255) NOT NULL,
             PHONE_NUMBER VARCHAR(255) NOT NULL,
             BATCH INT NOT NULL,
-            CURRENT_SEMESTER INT NOT NULL
+            CURRENT_SEMESTER INT NOT NULL,
+            BACKLOG INT
         )`,
     (err, result) => {
       if (err) {

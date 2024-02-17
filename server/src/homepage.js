@@ -23,7 +23,10 @@ app.post("/home", (req, res) => {
   const project4 = req.body.project4;
   const project5 = req.body.project5;
   const activity= req.body.activity;
-
+  const internship=req.body.internship;
+  const internshipName=req.body.internshipName;
+  const activityName=req.body.activityName;
+  const backlog=req.body.backlog;
   let responsesReceived = 0;
   function sendResponseIfFinished() {
     responsesReceived++;
@@ -33,8 +36,8 @@ app.post("/home", (req, res) => {
 }
 
   con.query(
-    "INSERT INTO student (USN,NAME,EMAIL,PHONE_NUMBER,BATCH,CURRENT_SEMESTER) VALUES (?,?,?,?,?,?)",
-    [usn, name, email, pno, batch, sem],
+    "INSERT INTO student (USN,NAME,EMAIL,PHONE_NUMBER,BATCH,CURRENT_SEMESTER,BACKLOG) VALUES (?,?,?,?,?,?,?)",
+    [usn, name, email, pno, batch, sem,backlog],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -67,8 +70,8 @@ app.post("/home", (req, res) => {
     }
   );
   con.query(
-    `INSERT INTO otheractivities (USN,ACTIVITY_NAME) VALUES (?,?)`,
-    [usn, activity],
+    `INSERT INTO otheractivities (USN,ACTIVITY,ACTIVITY_NAME,INTERNSHIP,INTERNSHIP_DOMAIN) VALUES (?,?,?,?,?)`,
+    [usn, activity,activityName,internship,internshipName],
     (err, result) => {
       if (err) {
         console.log(err);
