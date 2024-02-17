@@ -6,7 +6,7 @@ body{
     justify-content: center;
     align-items: center;
     margin-top: 5%;
-    font-size: 60px;
+    font-size: 80px;
     color: rgb(22, 22, 93);
 }
 .btn-next{
@@ -16,4 +16,8 @@ body{
     border: 2px solid rgb(255, 115, 0);
     border-radius: 2px;
     font-size: 20px;
+}
+.orange-bg{
+    background-color: orangered;
+    height: 20px;
 }
