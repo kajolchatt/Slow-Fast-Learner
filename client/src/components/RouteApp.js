@@ -5,6 +5,7 @@ import Login from "./Login";
 import Signup from "./Signup";
 import Start from "./Start";
 import AdminPage from "./AdminPage";
+import OtherPage from "./OtherPage";
 
 function RouteApp() {
   return (
@@ -15,7 +16,7 @@ function RouteApp() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/home" element={<Home />} />
         <Route path="/adminPage" element={<AdminPage/>}/>
- 
+        <Route path="/otherpage" element={<OtherPage/>}/>
       </Routes>
     </>
   );
