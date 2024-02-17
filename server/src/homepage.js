@@ -2,6 +2,8 @@ require("./app1");
 const { express, con, cors, app } = require("./app1");
 app.use(cors());
 app.use(express.json());
+let responsesReceived = 0;
+
 app.post("/home", (req, res) => {
   console.log(req.body);
   const usn = req.body.usn;
@@ -28,13 +30,14 @@ app.post("/home", (req, res) => {
   const activityName=req.body.activityName;
   const backlog=req.body.backlog;
   let responsesReceived = 0;
+
   function sendResponseIfFinished() {
     responsesReceived++;
-    if (responsesReceived === 4) { // Assuming you have four queries
-        res.send("values inserted");
+    if (responsesReceived === 5) {
+      // Assuming you have four queries
+      res.send("values inserted");
     }
-}
-
+  }
   con.query(
     "INSERT INTO student (USN,NAME,EMAIL,PHONE_NUMBER,BATCH,CURRENT_SEMESTER,BACKLOG) VALUES (?,?,?,?,?,?,?)",
     [usn, name, email, pno, batch, sem,backlog],
@@ -76,6 +79,30 @@ app.post("/home", (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        sendResponseIfFinished();
+      }
+    }
+  );
+});
+
+//Storing predicted value
+app.post("/store-prediction", (req, res) => {
+  const prediction = req.body.prediction;
+  const usn = req.body.usn;
+  function sendResponseIfFinished() {
+    responsesReceived++;
+    if (responsesReceived === 5) {
+      // Assuming you have four queries
+      res.send("values inserted");
+    }
+  }
+  console.log("back pred", prediction);
+  con.query(
+    `INSERT INTO predict(USN,PREDICT) VALUES(?,?)`,
+    [usn, prediction],
+    (error, result) => {
+      if (error) throw error;
+      else {
         sendResponseIfFinished();
       }
     }
