@@ -1,10 +1,6 @@
-const path = require('path');
-const dotenv = require('dotenv');
+const dotenv = require('./env');
 const mysql = require('mysql');
 
-const scriptDir = path.dirname(__filename);
-const dotenvPath = path.resolve(scriptDir, '.env');
-dotenv.config({ path: dotenvPath });
 
 const host = process.env.DB_HOST;
 const user = process.env.DB_USER;

@@ -1,24 +1,68 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import "../App.css";
 import ImageBg from "./ImageBg";
 import Navbar from "./Navbar";
+import validator from "validator";
 function Signup() {
   const history = useNavigate();
   const [username, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [type, setType] = useState("");
   const [userid, setUserid] = useState("");
-  async function submit(e) {
+  const [otp, setOtp] = useState();
+  const [otpSent, setOtpSent] = useState(false);
+
+  async function generateAndSendOtp(e) {
     e.preventDefault();
     try {
+      if (!validator.isEmail(username)) {
+        alert("Please enter a valid email address");
+        return;
+      }
+      await axios
+        .post("http://localhost:8000/generate-otp", {
+          type,
+        })
+        .then((response) => {
+          if (response.data === "success") {
+            alert("otp has been sent to higher authority");
+            setOtpSent(true);
+          } else {
+            console.log("res", response.data);
+            alert("failed to generate otp");
+          }
+        })
+        .catch((error) => {
+          console.error("Error generating otp", error.message);
+          alert("error generating otp1. please try again");
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  async function submit(e) {
+    e.preventDefault();
+
+    try {
+      if (type === "Admin" && !otpSent) {
+        await generateAndSendOtp();
+        return;
+      }
+
+      if (!validator.isEmail(username)) {
+        alert("Please enter a valid email address");
+        return;
+      }
+
       await axios
         .post("http://localhost:8000/signup", {
           username,
           password,
           userid,
           type,
+          OTP: parseInt(otp),
         })
         .then((res) => {
           if (res.data === "exist") {
@@ -32,7 +76,7 @@ function Signup() {
           console.log(e);
         });
     } catch (e) {
-      console.log(e);
+      console.log("wr", e.message);
     }
   }
   return (
@@ -70,15 +114,40 @@ function Signup() {
           ></input>
           <br />
           <br />
-          <input
-            type="text"
+
+          <select
+            className="type-field"
             onChange={(e) => {
               setType(e.target.value);
+              setOtpSent(false);
             }}
-            placeholder="Enter type"
-          />
+          >
+            <option value="" disabled selected>
+              Select type
+            </option>
+            <option value="Student">Student</option>
+            <option value="Admin">Admin</option>
+          </select>
           <br />
           <br />
+
+          {type === "Admin" && !otpSent && (
+            <>
+              <button onClick={generateAndSendOtp}>Generate OTP</button>
+            </>
+          )}
+          {type === "Admin" && otpSent && (
+            <>
+              <input
+                type="text"
+                onChange={(e) => {
+                  setOtp(e.target.value);
+                }}
+                placeholder="Enter OTP"
+              />
+            </>
+          )}
+
           <input type="submit" onClick={submit} />
         </form>
         <br />

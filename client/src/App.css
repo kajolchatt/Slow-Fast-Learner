@@ -18,5 +18,8 @@
   margin-top: 10%;
  
 }
-.login .form{
+.type-field{
+  width: 35%;
+  height: 25%;
+  color: gray;
 }
