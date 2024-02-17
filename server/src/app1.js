@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
+
 //OTP GENERATION ROUTE
 let responsesReceived = 0;
 const otpStorage = {};
