@@ -136,8 +136,67 @@ async function queryAsync(sql, values) {
 // *************************************HOMEPAGE*************************************************************************************
 const PORT = process.env.PORT || 8000;
 
+
+
+// *******************************admin****************************************
+
+app.post("/student", async (req, res, next) => {
+  try {
+    const { batchNumber } = req.body; // Extract batchNumber from request body
+
+    // Process the batch number, you can perform database operations here
+    console.log("Received batch number:", batchNumber);
+
+    // Send a response indicating success
+    res.status(200).json({ message: "Batch number received successfully" });
+  } catch (error) {
+    console.error("Error processing batch number:", error.message);
+    // Send a response indicating failure
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.get("/student", (req, res) => {
+  try {
+    const batchNumber = req.query.batchNumber; // Retrieve the batch number from query parameters
+    console.log("Received batch number:", batchNumber);
+    // Query the database to fetch student data filtered by batch number
+    con.query('SELECT * FROM student WHERE BATCH = ?', [batchNumber], (err, result) => {
+      if (err) {
+        console.log(err.message);
+        res.status(500).json({ error: 'Internal Server Error' });
+      } else {
+        res.status(200).json(result);
+      }
+    });
+  } catch (error) {
+    console.error("Error retrieving student data:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+
+// app.get("/student", (req, res) => {
+//   const batchNumber = req.batchNumber; // Retrieve the batch number stored in the request object
+//   console.log(batchNumber);
+//   // Query the database to fetch student data filtered by batch number
+//   con.query('SELECT * FROM student WHERE BATCH = ?', [batchNumber], (err, result) => {
+//       if (err) {
+//           console.log(err.message);
+//           res.status(500).send('Internal Server Error');
+//       } else {
+//           res.send(result);
+//       }
+//   });
+// });
+
+
+
+
+
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
 module.exports = { express, con, cors, app };
