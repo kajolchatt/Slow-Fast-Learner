@@ -46,7 +46,7 @@ function Login() {
               setEmail(e.target.value);
             }}
             placeholder="email"
-          ></input>{" "}
+          required></input>{" "}
           <br />
           <br />
           <input
@@ -55,7 +55,7 @@ function Login() {
               setPassword(e.target.value);
             }}
             placeholder="password"
-          ></input>
+            required></input>
           <br />
           <br />
           <input type="submit" onClick={submit} />

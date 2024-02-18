@@ -177,20 +177,17 @@ app.get("/student", (req, res) => {
 });
 
 
-
-// app.get("/student", (req, res) => {
-//   const batchNumber = req.batchNumber; // Retrieve the batch number stored in the request object
-//   console.log(batchNumber);
-//   // Query the database to fetch student data filtered by batch number
-//   con.query('SELECT * FROM student WHERE BATCH = ?', [batchNumber], (err, result) => {
-//       if (err) {
-//           console.log(err.message);
-//           res.status(500).send('Internal Server Error');
-//       } else {
-//           res.send(result);
-//       }
-//   });
-// });
+app.get("/prediction",(req,res)=>{
+  con.query("SELECT P.USN,S.NAME,S.EMAIL,S.PHONE_NUMBER,P.PREDICT FROM student S,predict P WHERE P.USN=S.USN ",(err,result)=>{
+    if(err){
+      console.log(err.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+    else{
+      res.send(result);
+    }
+  })
+})
 
 
 
