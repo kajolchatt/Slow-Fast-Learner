@@ -4,15 +4,14 @@ const cors = require("cors");
 const app = express();
 
 const nodemailer = require("nodemailer");
-const dotenv=require("./env")
+const dotenv = require("./env");
 
-const user=process.env.EMAIL_USER;
-const pass=process.env.EMAIL_PASS;
-const tomail=process.env.EMAIL_SEND;
+const user = process.env.EMAIL_USER;
+const pass = process.env.EMAIL_PASS;
+const tomail = process.env.EMAIL_SEND;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-
 
 //OTP GENERATION ROUTE
 let responsesReceived = 0;

@@ -34,6 +34,8 @@ function Start() {
   };
   return (
     <>
+      <div className="orange-bg"></div>
+      
       <Navbar />
       <ImageBg />
       <div className="ani-body">
