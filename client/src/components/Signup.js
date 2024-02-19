@@ -67,8 +67,10 @@ function Signup() {
         .then((res) => {
           if (res.data === "exist") {
             alert("User already exists");
-          } else if (res.data === "notexist") {
+          } else if (res.data.token) {
+            localStorage.setItem("token", res.data.token);
             history("/login");
+            // history("/login");
           }
         })
         .catch((e) => {

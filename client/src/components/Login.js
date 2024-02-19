@@ -18,10 +18,17 @@ function Login() {
           password,
         })
         .then((res) => {
-          if (res.data == "exist") {
-            history("/home", { state: { id: username } });
+          // if (res.data == "exist") {
+          //   history("/home", { state: { id: username } });
+          // }
+          if (res.data.token) {
+            localStorage.setItem("token", res.data.token);
+            history("/home");
           } else if (res.data == "notexist") {
             alert("User have not signed up!");
+          }
+          else{
+            alert("Authentication failed")
           }
         })
         .catch((e) => {

@@ -6,9 +6,13 @@ const app = express();
 const nodemailer = require("nodemailer");
 const dotenv = require("./env");
 
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+
 const user = process.env.EMAIL_USER;
 const pass = process.env.EMAIL_PASS;
 const tomail = process.env.EMAIL_SEND;
+const JWT_SECRET = process.env.JWT_SECRET;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
@@ -51,7 +55,7 @@ app.post("/generate-otp", async (req, res) => {
 
 //LOGIN ROUTE
 app.post("/login", async (req, res) => {
-  const { username } = req.body;
+  const { username, password } = req.body;
 
   try {
     const result = await queryAsync("SELECT * FROM users WHERE username=?", [
@@ -59,7 +63,18 @@ app.post("/login", async (req, res) => {
     ]);
 
     if (result && result.length > 0) {
-      res.json("exist");
+      const isPasswordValid = await bcrypt.compare(
+        password,
+        result[0].password
+      );
+      if (isPasswordValid) {
+        //Generate JWT token
+        var token = jwt.sign({ username, type: result[0].type }, JWT_SECRET, {
+          expiresIn: "1h",
+        });
+      }
+      res.json( {token });
+      // res.json("exist");
     } else {
       res.json("notexist");
     }
@@ -93,9 +108,17 @@ app.post("/signup", async (req, res) => {
         if (checkResult && checkResult.length > 0) {
           res.json("exist");
         } else {
+          // Hash the password before storing it
+          const hashedPassword = await bcrypt.hash(password, 10);
+          data.password = hashedPassword;
+
+          //generate jwt token
+          const token = jwt.sign({ username, type }, JWT_SECRET, {
+            expiresIn: "1h",
+          });
           await queryAsync("INSERT INTO users SET ?", data);
           console.log("User inserted into MySQL:", data);
-          res.json("notexist");
+          res.json({ token, message: "notexist" });
         }
         console.log(`Admin signup details:${username}, ${password}, ${userid}`);
       } else {
@@ -110,9 +133,17 @@ app.post("/signup", async (req, res) => {
       if (checkResult && checkResult.length > 0) {
         res.json("exist");
       } else {
+        // Hash the password before storing it
+        const hashedPassword = await bcrypt.hash(password, 10);
+        data.password = hashedPassword;
+
+        //generate jwt token
+        const token = jwt.sign({ username, type }, JWT_SECRET, {
+          expiresIn: "1h",
+        });
         await queryAsync("INSERT INTO users SET ?", data);
         console.log("User inserted into MySQL:", data);
-        res.json("notexist");
+        res.json({ token, message: "notexist" });
       }
     }
   } catch (error) {
@@ -135,8 +166,6 @@ async function queryAsync(sql, values) {
 
 // *************************************HOMEPAGE*************************************************************************************
 const PORT = process.env.PORT || 8000;
-
-
 
 // *******************************admin****************************************
 
@@ -161,21 +190,23 @@ app.get("/student", (req, res) => {
     const batchNumber = req.query.batchNumber; // Retrieve the batch number from query parameters
     console.log("Received batch number:", batchNumber);
     // Query the database to fetch student data filtered by batch number
-    con.query('SELECT * FROM student WHERE BATCH = ?', [batchNumber], (err, result) => {
-      if (err) {
-        console.log(err.message);
-        res.status(500).json({ error: 'Internal Server Error' });
-      } else {
-        res.status(200).json(result);
+    con.query(
+      "SELECT * FROM student WHERE BATCH = ?",
+      [batchNumber],
+      (err, result) => {
+        if (err) {
+          console.log(err.message);
+          res.status(500).json({ error: "Internal Server Error" });
+        } else {
+          res.status(200).json(result);
+        }
       }
-    });
+    );
   } catch (error) {
     console.error("Error retrieving student data:", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
-
 
 // app.get("/student", (req, res) => {
 //   const batchNumber = req.batchNumber; // Retrieve the batch number stored in the request object
@@ -190,11 +221,6 @@ app.get("/student", (req, res) => {
 //       }
 //   });
 // });
-
-
-
-
-
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

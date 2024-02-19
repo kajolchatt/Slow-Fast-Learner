@@ -5,6 +5,7 @@ import "./Home.css";
 import Axios from "axios";
 import ImageBg from "./ImageBg";
 import Navbar from "./Navbar";
+import ProtectedRoute from "./ProtectedRoute";
 function Home() {
   const [name, setName] = useState("");
   const [usn, setusn] = useState("");
@@ -13,7 +14,7 @@ function Home() {
   const [batch, setBatch] = useState("");
   const [sem, setSem] = useState("");
   const [activity, setActivity] = useState("");
-  const[activityName,setActivityName]=useState("");
+  const [activityName, setActivityName] = useState("");
   const [cgpa1, setCgpa1] = useState("0");
   const [sub1, setSub1] = useState("0");
   const [sub2, setSub2] = useState("0");
@@ -30,7 +31,7 @@ function Home() {
   const [project5, setProject5] = useState("");
   const [internship, setInternship] = useState("");
   const [internshipName, setInternshipName] = useState("");
-  const[backlog,setBacklog]=useState("");
+  const [backlog, setBacklog] = useState("");
 
   const displayInfo = () => {
     Axios.post("http://localhost:8000/home", {
@@ -52,16 +53,18 @@ function Home() {
       project3: project3,
       project4: project4,
       project5: project5,
-      activity:activity,
-      internship:internship,
-      internshipName:internshipName,
-      activityName:activityName,
-      backlog:backlog
-    }).then(() => {
-      console.log("Success");
-    }).catch((err)=>{
-      console.log(err)
-    });
+      activity: activity,
+      internship: internship,
+      internshipName: internshipName,
+      activityName: activityName,
+      backlog: backlog,
+    })
+      .then(() => {
+        console.log("Success");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     Axios.post("http://localhost:5000/api/predict", {
       CGPA: parseFloat(cgpa1),
@@ -73,29 +76,32 @@ function Home() {
       NUMBER_PROJECT: numberOfProjects,
       INTERNSHIP: 0,
       BACKLOGS: 0,
-      EXTRA_ACTIVITIES: 1,//activity,
-    }).then((response) => {
-      const prediction = response.data.prediction;
-      console.log("Prediction:", prediction);
+      EXTRA_ACTIVITIES: 1, //activity,
+    })
+      .then((response) => {
+        const prediction = response.data.prediction;
+        console.log("Prediction:", prediction);
 
-      // Now send the prediction to your Node.js backend to store in the database
-      Axios.post("http://localhost:8000/store-prediction", {
-        prediction:prediction,
-        usn:usn,
-      }).then(() => {
-        console.log("Prediction stored in MySQL");
+        // Now send the prediction to your Node.js backend to store in the database
+        Axios.post("http://localhost:8000/store-prediction", {
+          prediction: prediction,
+          usn: usn,
+        }).then(() => {
+          console.log("Prediction stored in MySQL");
+        });
+      })
+      .catch((err) => {
+        console.log("error", err.message);
       });
-    }).catch((err)=>{
-      console.log("error",err.message)
-    });
   };
 
   return (
     <>
-    <Navbar />
+      <Navbar />
       <ImageBg />
+      <ProtectedRoute path="/home" component={Home} />
       <div className="homepage">
-        <h1>Hello {location.state.id} and welcome to the home</h1>
+        <h1>Hello  and welcome to the home</h1> 
         <h1>Fill up your details</h1>
         <br />
         <h2>Personal Information</h2>
@@ -260,7 +266,7 @@ function Home() {
               setCgpa1(event.target.value);
             }}
           />
-           <label htmlFor="backlog">
+          <label htmlFor="backlog">
             <strong>Any backlogs??</strong>
           </label>
           <input
@@ -269,8 +275,8 @@ function Home() {
             placeholder="Enter yes or no"
             onChange={(event) => {
               if (event.target.value.toUpperCase() === "NO") {
-                  setBacklog(0);}
-              else{
+                setBacklog(0);
+              } else {
                 setBacklog(1);
               }
             }}
@@ -340,7 +346,6 @@ function Home() {
               setSub5(event.target.value);
             }}
           />{" "}
-         
           <br />
           <br />
           <h3>Other Skills</h3>
@@ -353,24 +358,29 @@ function Home() {
             placeholder="Enter other skills (if not write no)"
             onChange={(event) => {
               if (event.target.value.toUpperCase() === "NO") {
-                  setActivity(0);
-                  setActivityName("");}
-              else{
-                  setActivity(1);
-                  setActivityName(event.target.value);
+                setActivity(0);
+                setActivityName("");
+              } else {
+                setActivity(1);
+                setActivityName(event.target.value);
               }
             }}
           />
           <label htmlFor="internship">Are you doing any Internship??</label>
-          <input type="text" id="internship" placeholder="Enter **no** if none else enter internship domain" onChange={(event)=>{
-            if (event.target.value.toUpperCase() === "NO") {
-              setInternship(0);
-              setInternshipName("");
-          } else {
-              setInternship(1);
-              setInternshipName(event.target.value);
-          }
-          }}/>
+          <input
+            type="text"
+            id="internship"
+            placeholder="Enter **no** if none else enter internship domain"
+            onChange={(event) => {
+              if (event.target.value.toUpperCase() === "NO") {
+                setInternship(0);
+                setInternshipName("");
+              } else {
+                setInternship(1);
+                setInternshipName(event.target.value);
+              }
+            }}
+          />
           <br></br>
           <button onClick={displayInfo}>Submit</button>
         </div>
