@@ -222,6 +222,24 @@ app.get("/student", (req, res) => {
 //   });
 // });
 
+
+app.get("/prediction",(req,res)=>{
+  con.query("SELECT P.USN,S.NAME,S.EMAIL,S.PHONE_NUMBER,P.PREDICT FROM student S,predict P WHERE P.USN=S.USN ",(err,result)=>{
+    if(err){
+      console.log(err.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+    else{
+      res.send(result);
+    }
+  })
+})
+
+
+
+
+
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
