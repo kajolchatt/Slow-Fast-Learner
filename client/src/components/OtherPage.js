@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useLocation } from "react-router-dom";
 import Axios from 'axios';
 import "./OtherPage.css";
+import ImageBg from "./ImageBg";
+import Navbar from "./Navbar";
 
 function OtherPage() {
     const [studentList, setStudentList] = useState([]);
@@ -65,6 +67,8 @@ function OtherPage() {
 
     return (
         <div>
+            <Navbar />
+            <ImageBg />
             <h1>Batch Number: {batchNumber}</h1>
             <h2>Other Page</h2>
             <p>This is the other page content.</p>

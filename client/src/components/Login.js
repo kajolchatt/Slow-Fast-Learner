@@ -4,6 +4,9 @@ import { useNavigate, Link } from "react-router-dom";
 import "../App.css";
 import ImageBg from "./ImageBg";
 import Navbar from "./Navbar";
+import { jwtDecode } from 'jwt-decode';
+
+
 function Login() {
   const history = useNavigate();
   const [username, setEmail] = useState("");
@@ -23,8 +26,23 @@ function Login() {
           // }
           if (res.data.token) {
             localStorage.setItem("token", res.data.token);
-            history("/home");
-          } else if (res.data == "notexist") {
+            const token = localStorage.getItem("token");
+
+              // Decode the JWT token to access its payload
+              const decodedToken = jwtDecode(token);
+
+              // Access the 'type' property from the decoded token
+              const userType = decodedToken.type;
+            // const userType = res.data.token.type;
+            if (userType === "Admin") {
+                history("/adminPage");
+            } else if (userType === "Student") {
+                history("/home");
+            } else {
+              history("/home");
+            }
+        }
+        else if (res.data == "notexist") {
             alert("User have not signed up!");
           }
           else{
@@ -39,6 +57,7 @@ function Login() {
       console.log(e);
     }
   }
+
   return (
     <>
       <Navbar />
