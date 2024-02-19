@@ -9,7 +9,8 @@ con.query("USE slowfast", (err) => {
   con.query(
     `CREATE TABLE IF NOT EXISTS predict(
         USN VARCHAR(255) NOT NULL PRIMARY KEY,
-        PREDICT INT
+        PREDICT INT,
+        FOREIGN KEY (USN) REFERENCES users(userid) ON DELETE CASCADE
   )`,
     (err, res) => {
       if (err) {

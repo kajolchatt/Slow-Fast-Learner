@@ -69,13 +69,17 @@ function OtherPage() {
         <div>
             <Navbar />
             <ImageBg />
-            <h1>Batch Number: {batchNumber}</h1>
-            <h2>Other Page</h2>
-            <p>This is the other page content.</p>
-            <button onClick={getStudent}>Show Students</button>
-            <button onClick={getPrediction1}>Show Fast Learners</button>
-            <button onClick={getPrediction0}>Show Slow Learners</button>
+            <h1 >Batch Number: {batchNumber}</h1>
+            <hr />
+
+            <button className="filter" onClick={getStudent}>Show Students</button>
+            <button className="filter" onClick={getPrediction1}>Show Fast Learners</button>
+            <button className="filter" onClick={getPrediction0}>Show Slow Learners</button>
             
+
+
+
+
             {showStudents && (
                 <div>
                     <h1>Students</h1>
@@ -87,6 +91,7 @@ function OtherPage() {
                                 <th>EMAIL</th>
                                 <th>PHONE NUMBER</th>
                                 <th>BATCH</th>
+                                <th>SECTION</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -97,6 +102,7 @@ function OtherPage() {
                                     <td>{student.EMAIL}</td>
                                     <td>{student.PHONE_NUMBER}</td>
                                     <td>{student.BATCH}</td>
+                                    <td>{student.SECTION}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -115,6 +121,7 @@ function OtherPage() {
                             <th>NAME</th>
                             <th>EMAIL</th>
                             <th>PHONE NUMBER</th>
+                            <th>SECTION</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -125,6 +132,7 @@ function OtherPage() {
                                 <td>{prediction1.NAME}</td>
                                 <td>{prediction1.EMAIL}</td>
                                 <td>{prediction1.PHONE_NUMBER}</td>
+                                <td>{prediction1.SECTION}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -144,6 +152,7 @@ function OtherPage() {
                             <th>NAME</th>
                             <th>EMAIL</th>
                             <th>PHONE NUMBER</th>
+                            <th>SECTION</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -154,6 +163,7 @@ function OtherPage() {
                                 <td>{prediction0.NAME}</td>
                                 <td>{prediction0.EMAIL}</td>
                                 <td>{prediction0.PHONE_NUMBER}</td>
+                                <td>{prediction0.SECTION}</td>
                             </tr>
                         ))}
                     </tbody>

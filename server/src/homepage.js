@@ -12,6 +12,7 @@ app.post("/home", (req, res) => {
   const pno = req.body.pno;
   const batch = req.body.batch;
   const sem = req.body.sem;
+  const section=req.body.section;
   const sem1 = req.body.sem1;
   const sub1 = req.body.sub1;
   const sub2 = req.body.sub2;
@@ -39,8 +40,8 @@ app.post("/home", (req, res) => {
     }
   }
   con.query(
-    "INSERT INTO student (USN,NAME,EMAIL,PHONE_NUMBER,BATCH,CURRENT_SEMESTER,BACKLOG) VALUES (?,?,?,?,?,?,?)",
-    [usn, name, email, pno, batch, sem,backlog],
+    "INSERT INTO student (USN,NAME,EMAIL,PHONE_NUMBER,BATCH,CURRENT_SEMESTER,SECTION,BACKLOG) VALUES (?,?,?,?,?,?,?,?)",
+    [usn, name, email, pno, batch, sem, section ,backlog],
     (err, result) => {
       if (err) {
         console.log(err);

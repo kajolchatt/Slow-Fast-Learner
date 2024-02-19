@@ -31,6 +31,7 @@ function Home() {
   const [project5, setProject5] = useState("");
   const [internship, setInternship] = useState("");
   const [internshipName, setInternshipName] = useState("");
+  const [section,setSection]=useState("");
   const [backlog, setBacklog] = useState("");
 
   const displayInfo = () => {
@@ -41,6 +42,7 @@ function Home() {
       pno: pno,
       batch: batch,
       sem: sem,
+      section:section,
       sem1: cgpa1,
       sub1: sub1,
       sub2: sub2,
@@ -57,6 +59,7 @@ function Home() {
       internship: internship,
       internshipName: internshipName,
       activityName: activityName,
+
       backlog: backlog,
     })
       .then(() => {
@@ -178,6 +181,19 @@ function Home() {
             }}
           />
           <br />
+          <label htmlFor="section">
+            <strong>Enter Section</strong>
+          </label>
+          <input
+            type="section"
+            id="section"
+            placeholder="Enter Section"
+            onChange={(event) => {
+              setSection(event.target.value);
+            }}
+          />
+          <br />
+
           <hr />
           <h2>Project Information</h2>
           <br></br>

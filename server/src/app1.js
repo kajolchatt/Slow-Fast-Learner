@@ -191,7 +191,7 @@ app.get("/student", (req, res) => {
     console.log("Received batch number:", batchNumber);
     // Query the database to fetch student data filtered by batch number
     con.query(
-      "SELECT * FROM student WHERE BATCH = ?",
+      "SELECT * FROM student WHERE BATCH = ? ORDER BY SECTION ASC",
       [batchNumber],
       (err, result) => {
         if (err) {
@@ -224,7 +224,7 @@ app.get("/student", (req, res) => {
 
 
 app.get("/prediction",(req,res)=>{
-  con.query("SELECT P.USN,S.NAME,S.EMAIL,S.PHONE_NUMBER,P.PREDICT FROM student S,predict P WHERE P.USN=S.USN ",(err,result)=>{
+  con.query("SELECT P.USN,S.NAME,S.EMAIL,S.PHONE_NUMBER,P.PREDICT,S.SECTION FROM student S,predict P WHERE P.USN=S.USN ORDER BY S.SECTION ASC",(err,result)=>{
     if(err){
       console.log(err.message);
       res.status(500).json({ error: 'Internal Server Error' });
