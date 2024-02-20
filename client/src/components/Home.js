@@ -10,7 +10,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import { useHistory } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 function Home() {
-  const history = useNavigate();
+ 
   const [fetchedData, setFetchedData] = useState({});
   const [name, setName] = useState("");
   const [usn, setusn] = useState("");
@@ -146,7 +146,7 @@ function Home() {
       });
   };
 
-  const history = useNavigate();; 
+  const history = useNavigate();
   const handleLogout=()=>{
     localStorage.removeItem('token');
     history("/login");

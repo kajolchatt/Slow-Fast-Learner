@@ -22,9 +22,6 @@ function RouteApp() {
         <Route path="/otherpage" element={<OtherPage />} />
         <Route path="/filter" element={<Filter />} />
         <Route path="/thank-you" element={<ThankYou />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/adminPage" element={<AdminPage/>}/>
-        <Route path="/otherpage" element={<OtherPage/>}/>
         <Route path="/forgetPassword" element={<ForgetPassword/>}></Route>
         <Route path="/otpPage" element={<OtpPage/>}></Route>
       </Routes>
