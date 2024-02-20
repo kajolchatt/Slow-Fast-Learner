@@ -12,6 +12,7 @@ app.post("/home", async (req, res) => {
   const pno = req.body.pno;
   const batch = req.body.batch;
   const sem = req.body.sem;
+  const section=req.body.section;
   const sem1 = req.body.sem1;
   const sub1 = req.body.sub1;
   const sub2 = req.body.sub2;

@@ -13,13 +13,14 @@ con.query('use slowfast',(err)=>{
   //create table project
   con.query(`CREATE TABLE IF NOT EXISTS project(
     
-    USN VARCHAR(255),
+    USN VARCHAR(255) PRIMARY KEY,
     NO_OF_PROJECT INTEGER DEFAULT 0,
     PROJECT1 VARCHAR(255) DEFAULT 0,
     PROJECT2 VARCHAR(255) DEFAULT 0,
     PROJECT3 VARCHAR(255) DEFAULT 0,
     PROJECT4 VARCHAR(255) DEFAULT 0,
-    PROJECT5 VARCHAR(255) DEFAULT 0
+    PROJECT5 VARCHAR(255) DEFAULT 0,
+    FOREIGN KEY (USN) REFERENCES users(userid) ON DELETE CASCADE
   )`,(err, result) => {
     if (err) {
       console.error("Error creating project table:", err.message);

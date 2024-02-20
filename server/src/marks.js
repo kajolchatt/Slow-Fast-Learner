@@ -20,7 +20,7 @@ con.query("USE slowfast", (err) => {
             SUB3 INTEGER DEFAULT 0,
             SUB4 INTEGER DEFAULT 0,
             SUB5 INTEGER DEFAULT 0,
-            FOREIGN KEY (USN) REFERENCES STUDENT(USN)ON DELETE CASCADE,
+            FOREIGN KEY (USN) REFERENCES users(userid) ON DELETE CASCADE,
             PRIMARY KEY(USN,NAME)
         )`,
     (err, result) => {
