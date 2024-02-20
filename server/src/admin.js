@@ -18,5 +18,5 @@ app.get('/otherpage', (req, res) => {
       // Render the 'otherpage' template and pass the fetched data to it
       res.render('otherpage', { data: results });
     });
-  });
+  }); 
   

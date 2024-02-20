@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import "../App.css";
@@ -40,11 +40,11 @@ function Login() {
               history("/home");
             }
         }
-        else if (res.data == "notexist") {
+        else if (res.data === "notexist") {
             alert("User have not signed up!");
-          }
-          else{
-            alert("Authentication failed")
+          } else {
+            console.log(res.data.token);
+            alert("Authentication failed");
           }
         })
         .catch((e) => {
@@ -54,6 +54,15 @@ function Login() {
     } catch (e) {
       console.log(e);
     }
+    console.log({username})
+    await axios
+      .post("http://localhost:8000/fetch-existing-data", { username })
+      .then((res) => {
+        console.log("log",res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
@@ -70,7 +79,8 @@ function Login() {
               setEmail(e.target.value);
             }}
             placeholder="email"
-          required></input>{" "}
+            required
+          ></input>{" "}
           <br />
           <br />
           <input
@@ -79,7 +89,8 @@ function Login() {
               setPassword(e.target.value);
             }}
             placeholder="password"
-            required></input>
+            required
+          ></input>
           <br />
           <br />
           <input type="submit" onClick={submit} />
