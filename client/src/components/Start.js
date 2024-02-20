@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDom from "react-dom";
 import Navbar from "./Navbar";
 import Typed from "typed.js";
@@ -6,10 +6,11 @@ import RouteApp from "./RouteApp";
 import "./Start.css";
 import ImageBg from "./ImageBg";
 import { Link, useNavigate } from "react-router-dom";
+import ModalWindowLoader from "./ModalWindowLoader";
 function Start() {
   const el = React.useRef(null);
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(false);
   React.useEffect(() => {
     const typed = new Typed(el.current, {
       strings: [
@@ -30,12 +31,16 @@ function Start() {
 
   const handleNextClick = () => {
     // Use history to navigate to the desired route
-    navigate("/signup");
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      navigate("/signup");
+    }, 2000);
   };
   return (
     <>
       <div className="orange-bg"></div>
-      
+
       <Navbar />
       <ImageBg />
       <div className="ani-body">
@@ -44,7 +49,7 @@ function Start() {
       <button className="btn-next" onClick={handleNextClick}>
         Next
       </button>
-
+      {loading && <ModalWindowLoader loading={loading}/>}
       {/* <RouteApp/> */}
     </>
   );

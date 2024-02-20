@@ -12,7 +12,7 @@ app.post("/home", async (req, res) => {
   const pno = req.body.pno;
   const batch = req.body.batch;
   const sem = req.body.sem;
-  const section=req.body.section;
+  const section = req.body.section;
   const sem1 = req.body.sem1;
   const sub1 = req.body.sub1;
   const sub2 = req.body.sub2;
@@ -89,8 +89,8 @@ app.post("/home", async (req, res) => {
     res.send("values updated");
   } else {
     con.query(
-      "INSERT INTO student (USN,NAME,EMAIL,PHONE_NUMBER,BATCH,CURRENT_SEMESTER,BACKLOG) VALUES (?,?,?,?,?,?,?)",
-      [usn, name, email, pno, batch, sem, backlog],
+      "INSERT INTO student (USN,NAME,EMAIL,PHONE_NUMBER,BATCH,SECTION,CURRENT_SEMESTER,BACKLOG) VALUES (?,?,?,?,?,?,?,?)",
+      [usn, name, email, pno, batch, section, sem, backlog],
       (err, result) => {
         if (err) {
           console.log(err);
@@ -150,7 +150,7 @@ app.post("/store-prediction", (req, res) => {
   console.log("back pred", prediction);
   con.query(
     `INSERT INTO predict(USN,PREDICT) VALUES(?,?) ON DUPLICATE KEY UPDATE PREDICT = ?`,
-    [usn, prediction,prediction],
+    [usn, prediction, prediction],
     (error, result) => {
       if (error) throw error;
       else {

@@ -5,6 +5,7 @@ import "../App.css";
 import ImageBg from "./ImageBg";
 import Navbar from "./Navbar";
 import validator from "validator";
+import ModalWindowLoader from "./ModalWindowLoader";
 function Signup() {
   const history = useNavigate();
   const [username, setEmail] = useState("");
@@ -85,6 +86,7 @@ function Signup() {
     <>
       <Navbar />
       <ImageBg />
+      {/* <ModalWindowLoader/> */}
       <div className="login">
         <h1>Signup</h1>
 

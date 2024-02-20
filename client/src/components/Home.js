@@ -6,8 +6,9 @@ import Axios from "axios";
 import ImageBg from "./ImageBg";
 import Navbar from "./Navbar";
 import ProtectedRoute from "./ProtectedRoute";
-
+import { useNavigate } from "react-router-dom";
 function Home() {
+  const history = useNavigate();
   const [fetchedData, setFetchedData] = useState({});
   const [name, setName] = useState("");
   const [usn, setusn] = useState("");
@@ -33,12 +34,14 @@ function Home() {
   const [internshipName, setInternshipName] = useState("");
   const [section, setSection] = useState("");
   const [backlog, setBacklog] = useState("0");
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     Axios.get("http://localhost:8000/fetch-existing-data")
       .then((response) => {
         console.log(response.data[0].SECTION);
         setFetchedData(response.data[0]);
+        setEdit(!!response.data[0]);
         // if (response.data) {
         setName(response.data[0].NAME || "");
         setusn(response.data[0].USN || "");
@@ -69,7 +72,15 @@ function Home() {
       });
   }, []);
 
+  const toggle = () => {
+    setEdit(!edit);
+  };
   const displayInfo = () => {
+    updateData();
+    toggle();
+    history("/thank-you");
+  };
+  const updateData = () => {
     Axios.post("http://localhost:8000/home", {
       usn: usn,
       name: name,
@@ -209,18 +220,36 @@ function Home() {
             value={fetchedData.BATCH}
           />
           <br />
-          <label htmlFor="sem">
-            <strong>Enter Current Semester</strong>
-          </label>
-          <input
-            type="text"
-            id="sem"
-            placeholder="Enter Current Semester"
-            onChange={(event) => {
-              setSem(event.target.value);
-            }}
-            value={fetchedData.CURRENT_SEMESTER}
-          />
+          {edit ? (
+            <>
+              <label htmlFor="sem">
+                <strong>Enter Current Semester</strong>
+              </label>
+              <input
+                type="text"
+                id="sem"
+                placeholder="Enter Current Semester"
+                onChange={(event) => {
+                  setSem(event.target.value);
+                }}
+              />
+            </>
+          ) : (
+            <>
+              <label htmlFor="sem">
+                <strong>Enter Current Semester</strong>
+              </label>
+              <input
+                type="text"
+                id="sem"
+                placeholder="Enter Current Semester"
+                onChange={(event) => {
+                  setSem(event.target.value);
+                }}
+                value={fetchedData.CURRENT_SEMESTER}
+              />
+            </>
+          )}
           <br />
           <label htmlFor="section">
             <strong>Enter Section</strong>
@@ -236,225 +265,493 @@ function Home() {
           />
           <br />
           <hr />
-          <h2>Project Information</h2>
+          {edit ? (
+            <>
+              <h2>Project Information</h2>
+              <br></br>
+              <label htmlFor="numberOfProjects">
+                <strong>Enter number Of Projects</strong>
+              </label>
+              <input
+                type="text"
+                id="numberOfProjects"
+                placeholder="Enter no of projects done"
+                onChange={(event) => {
+                  setNumberOfProjects(event.target.value);
+                }}
+              />
+            </>
+          ) : (
+            <>
+              <h2>Project Information</h2>
+              <br></br>
+              <label htmlFor="numberOfProjects">
+                <strong>Enter number Of Projects</strong>
+              </label>
+              <input
+                type="text"
+                id="numberOfProjects"
+                placeholder="Enter no of projects done"
+                onChange={(event) => {
+                  setNumberOfProjects(event.target.value);
+                }}
+                value={fetchedData.NO_OF_PROJECT}
+              />
+            </>
+          )}
           <br></br>
-          <label htmlFor="numberOfProjects">
-            <strong>Enter number Of Projects</strong>
-          </label>
-          <input
-            type="text"
-            id="numberOfProjects"
-            placeholder="Enter no of projects done"
-            onChange={(event) => {
-              setNumberOfProjects(event.target.value);
-            }}
-            value={fetchedData.NO_OF_PROJECT}
-          />
+          {edit ? (
+            <>
+              <label htmlFor="project1">
+                <strong>Enter 1'st Project Name</strong>
+              </label>
+              <input
+                type="text"
+                id="project1"
+                placeholder="Enter 1'st Project Name"
+                onChange={(event) => {
+                  setProject1(event.target.value);
+                }}
+              />
+            </>
+          ) : (
+            <>
+              <label htmlFor="project1">
+                <strong>Enter 1'st Project Name</strong>
+              </label>
+              <input
+                type="text"
+                id="project1"
+                placeholder="Enter 1'st Project Name"
+                onChange={(event) => {
+                  setProject1(event.target.value);
+                }}
+                value={fetchedData.PROJECT1}
+              />
+            </>
+          )}
           <br></br>
-          <label htmlFor="project1">
-            <strong>Enter 1'st Project Name</strong>
-          </label>
-          <input
-            type="text"
-            id="project1"
-            placeholder="Enter 1'st Project Name"
-            onChange={(event) => {
-              setProject1(event.target.value);
-            }}
-            value={fetchedData.PROJECT1}
-          />
+          {edit ? (
+            <>
+              <label htmlFor="project2">
+                <strong>Enter 2'nd Project Name</strong>
+              </label>
+              <input
+                type="text"
+                id="project2"
+                placeholder="Enter 2'nd Project Name"
+                onChange={(event) => {
+                  setProject2(event.target.value);
+                }}
+              />
+            </>
+          ) : (
+            <>
+              <label htmlFor="project2">
+                <strong>Enter 2'nd Project Name</strong>
+              </label>
+              <input
+                type="text"
+                id="project2"
+                placeholder="Enter 2'nd Project Name"
+                onChange={(event) => {
+                  setProject2(event.target.value);
+                }}
+                value={fetchedData.PROJECT2}
+              />
+            </>
+          )}
           <br></br>
-          <label htmlFor="project2">
-            <strong>Enter 2'nd Project Name</strong>
-          </label>
-          <input
-            type="text"
-            id="project2"
-            placeholder="Enter 2'nd Project Name"
-            onChange={(event) => {
-              setProject2(event.target.value);
-            }}
-            value={fetchedData.PROJECT2}
-          />
+          {edit ? (
+            <>
+              <label htmlFor="project3">
+                <strong>Enter 3'rd Project Name</strong>
+              </label>
+              <input
+                type="text"
+                id="project3"
+                placeholder="Enter 3'rd Project Name"
+                onChange={(event) => {
+                  setProject3(event.target.value);
+                }}
+              />
+            </>
+          ) : (
+            <>
+              <label htmlFor="project3">
+                <strong>Enter 3'rd Project Name</strong>
+              </label>
+              <input
+                type="text"
+                id="project3"
+                placeholder="Enter 3'rd Project Name"
+                onChange={(event) => {
+                  setProject3(event.target.value);
+                }}
+                value={fetchedData.PROJECT3}
+              />
+            </>
+          )}
           <br></br>
-          <label htmlFor="project3">
-            <strong>Enter 3'rd Project Name</strong>
-          </label>
-          <input
-            type="text"
-            id="project3"
-            placeholder="Enter 3'rd Project Name"
-            onChange={(event) => {
-              setProject3(event.target.value);
-            }}
-            value={fetchedData.PROJECT3}
-          />
+          {edit ? (
+            <>
+              <label htmlFor="project4">
+                <strong>Enter 4'th Project Name</strong>
+              </label>
+              <input
+                type="text"
+                id="project4"
+                placeholder="Enter 4'th Project Name"
+                onChange={(event) => {
+                  setProject4(event.target.value);
+                }}
+              />
+            </>
+          ) : (
+            <>
+              <label htmlFor="project4">
+                <strong>Enter 4'th Project Name</strong>
+              </label>
+              <input
+                type="text"
+                id="project4"
+                placeholder="Enter 4'th Project Name"
+                onChange={(event) => {
+                  setProject4(event.target.value);
+                }}
+                value={fetchedData.PROJECT4}
+              />
+            </>
+          )}
           <br></br>
-          <label htmlFor="project4">
-            <strong>Enter 4'th Project Name</strong>
-          </label>
-          <input
-            type="text"
-            id="project4"
-            placeholder="Enter 4'th Project Name"
-            onChange={(event) => {
-              setProject4(event.target.value);
-            }}
-            value={fetchedData.PROJECT4}
-          />
-          <br></br>
-          <label htmlFor="project5">
-            <strong>Enter 5'th Project Name</strong>
-          </label>
-          <input
-            type="text"
-            id="project5"
-            placeholder="Enter 5'th Project Name"
-            onChange={(event) => {
-              setProject5(event.target.value);
-            }}
-            value={fetchedData.PROJECT5}
-          />
+          {edit ? (
+            <>
+              <label htmlFor="project5">
+                <strong>Enter 5'th Project Name</strong>
+              </label>
+              <input
+                type="text"
+                id="project5"
+                placeholder="Enter 5'th Project Name"
+                onChange={(event) => {
+                  setProject5(event.target.value);
+                }}
+              />
+            </>
+          ) : (
+            <>
+              <label htmlFor="project5">
+                <strong>Enter 5'th Project Name</strong>
+              </label>
+              <input
+                type="text"
+                id="project5"
+                placeholder="Enter 5'th Project Name"
+                onChange={(event) => {
+                  setProject5(event.target.value);
+                }}
+                value={fetchedData.PROJECT5}
+              />
+            </>
+          )}
           <br></br>
           <br></br>
           <h2>Academic Details</h2>
           <label htmlFor="cgpa1">
             <strong>Enter cgpa</strong>
           </label>
-          <input
-            type="text"
-            id="cgpa1"
-            placeholder="Enter cgpa"
-            onChange={(event) => {
-              setCgpa1(event.target.value);
-            }}
-            value={fetchedData.SEM1}
-          />
+          {edit ? (
+            <>
+              <input
+                type="text"
+                id="cgpa1"
+                placeholder="Enter cgpa"
+                onChange={(event) => {
+                  setCgpa1(event.target.value);
+                }}
+              />
+            </>
+          ) : (
+            <>
+              <input
+                type="text"
+                id="cgpa1"
+                placeholder="Enter cgpa"
+                onChange={(event) => {
+                  setCgpa1(event.target.value);
+                }}
+                value={fetchedData.SEM1}
+              />
+            </>
+          )}
           <label htmlFor="backlog">
             <strong>Any backlogs??</strong>
           </label>
-          <input
-            type="text"
-            id="backlog"
-            placeholder="Enter yes or no"
-            onChange={(event) => {
-              if (event.target.value.toUpperCase() === "NO") {
-                setBacklog(0);
-              } else {
-                setBacklog(1);
-              }
-            }}
-            value={fetchedData.BACKLOG}
-          />
+          {edit ? (
+            <>
+              <input
+                type="text"
+                id="backlog"
+                placeholder="Enter yes or no"
+                onChange={(event) => {
+                  if (event.target.value.toUpperCase() === "NO") {
+                    setBacklog(0);
+                  } else {
+                    setBacklog(1);
+                  }
+                }}
+              />
+            </>
+          ) : (
+            <>
+              <input
+                type="text"
+                id="backlog"
+                placeholder="Enter yes or no"
+                onChange={(event) => {
+                  if (event.target.value.toUpperCase() === "NO") {
+                    setBacklog(0);
+                  } else {
+                    setBacklog(1);
+                  }
+                }}
+                value={fetchedData.BACKLOG}
+              />
+            </>
+          )}
           <br></br>
           <h2>Enter IA Marks</h2>
           <label htmlFor="sub1">
             <strong>Subject 1</strong>
           </label>
-          <input
-            type="text"
-            id="sub1"
-            placeholder="Enter Subject 1 marks"
-            onChange={(event) => {
-              setSub1(event.target.value);
-            }}
-            value={fetchedData.SUB1}
-          />{" "}
+          {edit ? (
+            <>
+              <input
+                type="text"
+                id="sub1"
+                placeholder="Enter Subject 1 marks"
+                onChange={(event) => {
+                  setSub1(event.target.value);
+                }}
+              />{" "}
+            </>
+          ) : (
+            <>
+              <input
+                type="text"
+                id="sub1"
+                placeholder="Enter Subject 1 marks"
+                onChange={(event) => {
+                  setSub1(event.target.value);
+                }}
+                value={fetchedData.SUB1}
+              />{" "}
+            </>
+          )}
           <br />
           <br />
           <label htmlFor="sub2">
             <strong>Subject 2</strong>
           </label>
-          <input
-            type="text"
-            id="sub2"
-            placeholder="Enter Subject 2 marks"
-            onChange={(event) => {
-              setSub2(event.target.value);
-            }}
-            value={fetchedData.SUB2}
-          />{" "}
+          {edit ? (
+            <>
+              <input
+                type="text"
+                id="sub2"
+                placeholder="Enter Subject 2 marks"
+                onChange={(event) => {
+                  setSub2(event.target.value);
+                }}
+              />{" "}
+            </>
+          ) : (
+            <>
+              <input
+                type="text"
+                id="sub2"
+                placeholder="Enter Subject 2 marks"
+                onChange={(event) => {
+                  setSub2(event.target.value);
+                }}
+                value={fetchedData.SUB2}
+              />{" "}
+            </>
+          )}
           <br />
           <br />
           <label htmlFor="sub3">
             <strong>Subject 3</strong>
           </label>
-          <input
-            type="text"
-            id="sub3"
-            placeholder="Enter Subject 3 marks"
-            onChange={(event) => {
-              setSub3(event.target.value);
-            }}
-            value={fetchedData.SUB3}
-          />{" "}
+          {edit ? (
+            <>
+              <input
+                type="text"
+                id="sub3"
+                placeholder="Enter Subject 3 marks"
+                onChange={(event) => {
+                  setSub3(event.target.value);
+                }}
+              />{" "}
+            </>
+          ) : (
+            <>
+              <input
+                type="text"
+                id="sub3"
+                placeholder="Enter Subject 3 marks"
+                onChange={(event) => {
+                  setSub3(event.target.value);
+                }}
+                value={fetchedData.SUB3}
+              />{" "}
+            </>
+          )}
           <br />
           <br />
           <label htmlFor="sub4">
             <strong>Subject 4</strong>
           </label>
-          <input
-            type="text"
-            id="sub4"
-            placeholder="Enter Subject 4 marks"
-            onChange={(event) => {
-              setSub4(event.target.value);
-            }}
-            value={fetchedData.SUB4}
-          />{" "}
+          {edit ? (
+            <>
+              <input
+                type="text"
+                id="sub4"
+                placeholder="Enter Subject 4 marks"
+                onChange={(event) => {
+                  setSub4(event.target.value);
+                }}
+              />{" "}
+            </>
+          ) : (
+            <>
+              <input
+                type="text"
+                id="sub4"
+                placeholder="Enter Subject 4 marks"
+                onChange={(event) => {
+                  setSub4(event.target.value);
+                }}
+                value={fetchedData.SUB4}
+              />{" "}
+            </>
+          )}
           <br />
           <br />
           <label htmlFor="sub5">
             <strong>Subject 5</strong>
           </label>
-          <input
-            type="text"
-            id="sub5"
-            placeholder="Enter Subject 5 marks"
-            onChange={(event) => {
-              setSub5(event.target.value);
-            }}
-            value={fetchedData.SUB5}
-          />{" "}
+          {edit ? (
+            <>
+              <input
+                type="text"
+                id="sub5"
+                placeholder="Enter Subject 5 marks"
+                onChange={(event) => {
+                  setSub5(event.target.value);
+                }}
+              />{" "}
+            </>
+          ) : (
+            <>
+              <input
+                type="text"
+                id="sub5"
+                placeholder="Enter Subject 5 marks"
+                onChange={(event) => {
+                  setSub5(event.target.value);
+                }}
+                value={fetchedData.SUB5}
+              />{" "}
+            </>
+          )}
+
           <br />
           <br />
           <h3>Other Skills</h3>
           <label htmlFor="activity">
             <strong>Enter Other Skills</strong>
           </label>
-          <input
-            type="text"
-            id="activity"
-            placeholder="Enter other skills (if not write no)"
-            onChange={(event) => {
-              if (event.target.value.toUpperCase() === "NO") {
-                setActivity(0);
-                setActivityName("");
-              } else {
-                setActivity(1);
-                setActivityName(event.target.value);
-              }
-            }}
-            value={fetchedData.ACTIVITY_NAME}
-          />
+          {edit ? (
+            <>
+              <input
+                type="text"
+                id="activity"
+                placeholder="Enter other skills (if not write no)"
+                onChange={(event) => {
+                  if (event.target.value.toUpperCase() === "NO") {
+                    setActivity(0);
+                    setActivityName("");
+                  } else {
+                    setActivity(1);
+                    setActivityName(event.target.value);
+                  }
+                }}
+              />
+            </>
+          ) : (
+            <>
+              <input
+                type="text"
+                id="activity"
+                placeholder="Enter other skills (if not write no)"
+                onChange={(event) => {
+                  if (event.target.value.toUpperCase() === "NO") {
+                    setActivity(0);
+                    setActivityName("");
+                  } else {
+                    setActivity(1);
+                    setActivityName(event.target.value);
+                  }
+                }}
+                value={fetchedData.ACTIVITY_NAME}
+              />
+            </>
+          )}
+
           <label htmlFor="internship">Are you doing any Internship??</label>
-          <input
-            type="text"
-            id="internship"
-            placeholder="Enter **no** if none else enter internship domain"
-            onChange={(event) => {
-              if (event.target.value.toUpperCase() === "NO") {
-                setInternship(0);
-                setInternshipName("");
-              } else {
-                setInternship(1);
-                setInternshipName(event.target.value);
-              }
-            }}
-            value={fetchedData.INTERNSHIP_DOMAIN}
-          />
+          {edit ? (
+            <>
+              <input
+                type="text"
+                id="internship"
+                placeholder="Enter **no** if none else enter internship domain"
+                onChange={(event) => {
+                  if (event.target.value.toUpperCase() === "NO") {
+                    setInternship(0);
+                    setInternshipName("");
+                  } else {
+                    setInternship(1);
+                    setInternshipName(event.target.value);
+                  }
+                }}
+              />
+            </>
+          ) : (
+            <>
+              <input
+                type="text"
+                id="internship"
+                placeholder="Enter **no** if none else enter internship domain"
+                onChange={(event) => {
+                  if (event.target.value.toUpperCase() === "NO") {
+                    setInternship(0);
+                    setInternshipName("");
+                  } else {
+                    setInternship(1);
+                    setInternshipName(event.target.value);
+                  }
+                }}
+                value={fetchedData.INTERNSHIP_DOMAIN}
+              />
+            </>
+          )}
+
           <br></br>
-          <button onClick={displayInfo}>Submit</button>
+          {edit ? (
+            <button onClick={toggle}>Edit Done</button>
+          ) : (
+            <button onClick={displayInfo}>Submit</button>
+          )}
         </div>
       </div>
     </>
