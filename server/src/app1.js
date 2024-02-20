@@ -73,7 +73,7 @@ app.post("/login", async (req, res) => {
           expiresIn: "1h",
         });
       }
-      res.json( {token });
+      res.json({ token });
       // res.json("exist");
     } else {
       res.json("notexist");
@@ -208,39 +208,57 @@ app.get("/student", (req, res) => {
   }
 });
 
-// app.get("/student", (req, res) => {
-//   const batchNumber = req.batchNumber; // Retrieve the batch number stored in the request object
-//   console.log(batchNumber);
-//   // Query the database to fetch student data filtered by batch number
-//   con.query('SELECT * FROM student WHERE BATCH = ?', [batchNumber], (err, result) => {
-//       if (err) {
-//           console.log(err.message);
-//           res.status(500).send('Internal Server Error');
-//       } else {
-//           res.send(result);
-//       }
-//   });
-// });
+app.get("/prediction", (req, res) => {
+  con.query(
+    "SELECT P.USN,S.NAME,S.EMAIL,S.PHONE_NUMBER,P.PREDICT FROM student S,predict P WHERE P.USN=S.USN ",
+    (err, result) => {
+      if (err) {
+        console.log(err.message);
+        res.status(500).json({ error: "Internal Server Error" });
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
 
+app.post("/fetch-existing-data", (req, res) => {
+  const requestBody = req.body;
+  res.json({ requestBody });
+});
+app.get("/fetch-existing-data", (req, res) => {
+  const username = res.locals.requestBody;
+  console.log(username);
+  const sql = `SELECT 
+    s.NAME, s.USN, s.PHONE_NUMBER, s.EMAIL, s.BATCH, s.CURRENT_SEMESTER, s.BACKLOG,
+    p.NO_OF_PROJECT, p.PROJECT1, p.PROJECT2, p.PROJECT3, p.PROJECT4, p.PROJECT5,
+    m.SEM1, m.SUB1, m.SUB2, m.SUB3, m.SUB4, m.SUB5,
+    o.ACTIVITY_NAME, o.INTERNSHIP_DOMAIN
+  FROM 
+    student s
+  JOIN 
+    project p ON s.USN = p.USN
+  JOIN 
+    marks m ON s.USN = m.USN
+  JOIN 
+    otheractivities o ON s.USN = o.USN;
+  `;
 
-app.get("/prediction",(req,res)=>{
-  con.query("SELECT P.USN,S.NAME,S.EMAIL,S.PHONE_NUMBER,P.PREDICT FROM student S,predict P WHERE P.USN=S.USN ",(err,result)=>{
-    if(err){
+  con.query(sql, [username], (err, result) => {
+    if (err) {
       console.log(err.message);
-      res.status(500).json({ error: 'Internal Server Error' });
+      res.status(500).send("internal server error");
+    } else {
+      if (result.length > 0) {
+        res.json({ result });
+      } else {
+        res.json({});
+      }
     }
-    else{
-      res.send(result);
-    }
-  })
-})
-
-
-
-
-
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-module.exports = { express, con, cors, app };
+module.exports = { express, con, cors, app, queryAsync };

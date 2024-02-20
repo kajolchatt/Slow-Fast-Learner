@@ -14,7 +14,7 @@ function RouteApp() {
         <Route path="/" element={<Start />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/home/*" element={<Home />} />
         <Route path="/adminPage" element={<AdminPage/>}/>
         <Route path="/otherpage" element={<OtherPage/>}/>
       </Routes>
