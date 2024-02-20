@@ -30,8 +30,6 @@ function AdminPage() {
     
         navigate("/otherpage", { state: { batchNumber: batchNumber } });
     };
-    
-    
 
     return (
         <>

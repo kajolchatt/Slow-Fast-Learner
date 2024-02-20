@@ -3,16 +3,28 @@ import $ from "jquery";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import React, { useState } from 'react';
 import "./Navbar.css";
+import { useNavigate } from "react-router-dom";
+
 function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const navigate = useNavigate();
 
   const inlinestyle = {
     marginLeft: "10%",
+    cursor: "pointer" // Add cursor pointer style
   };
 
   const toggleNavbar = () => {
     setIsNavOpen(!isNavOpen);
   };
+
+  const handleLogin=()=>{
+    navigate("/login");
+  }
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate("/login"); // Use navigate function to redirect
+  }
 
   return (
     <>
@@ -22,10 +34,11 @@ function Navbar() {
             src="https://www.rnsit.ac.in/wp-content/themes/rnsit/webp/logo.webp"
             style={inlinestyle}
           />
-          <h4 className="d-none d-lg-block">Home</h4>
-          <h4 className="d-none d-lg-block">Contact</h4>
-          <h4 className="d-none d-lg-block">About</h4>
-          <h4 className="log d-none d-lg-block">Login</h4>
+          <h4 className="d-none d-lg-block" style={{ cursor: "pointer" }}>Home</h4>
+          <h4 className="d-none d-lg-block" style={{ cursor: "pointer" }}>Contact</h4>
+          <h4 className="d-none d-lg-block" style={{ cursor: "pointer" }}>About</h4>
+          <h4 className="d-none d-lg-block" style={{ cursor: "pointer" }} onClick={handleLogin}>Login</h4>
+          <h4 className="log d-none d-lg-block" style={{ cursor: "pointer" }} onClick={handleLogout}>Logout</h4>
           {/* Toggle button for small screens */}
           <button
             className="navbar-toggler d-lg-none"

@@ -6,7 +6,8 @@ import Signup from "./Signup";
 import Start from "./Start";
 import AdminPage from "./AdminPage";
 import OtherPage from "./OtherPage";
-
+import ForgetPassword from "./ForgetPassword";
+import OtpPage from "./OtpPage";
 function RouteApp() {
   return (
     <>
@@ -17,6 +18,8 @@ function RouteApp() {
         <Route path="/home" element={<Home />} />
         <Route path="/adminPage" element={<AdminPage/>}/>
         <Route path="/otherpage" element={<OtherPage/>}/>
+        <Route path="/forgetPassword" element={<ForgetPassword/>}></Route>
+        <Route path="/otpPage" element={<OtpPage/>}></Route>
       </Routes>
     </>
   );

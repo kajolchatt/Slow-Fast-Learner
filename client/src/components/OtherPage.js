@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 import Axios from 'axios';
 import "./OtherPage.css";
 import ImageBg from "./ImageBg";
@@ -64,11 +64,16 @@ function OtherPage() {
             });
     };
     
-
+    const history = useNavigate();; 
+    const handleLogout=()=>{
+      localStorage.removeItem('token');
+      history("/login");
+    }
     return (
         <div>
             <Navbar />
             <ImageBg />
+            <button class="logout" onClick={handleLogout}>Logout</button>
             <h1 >Batch Number: {batchNumber}</h1>
             <hr />
 
