@@ -236,40 +236,75 @@ app.get("/prediction", (req, res) => {
   );
 });
 
-app.post("/fetch-existing-data", (req, res) => {
-  const requestBody = req.body;
+let temporaryData;
+// let dataFetched = false;
+app.post("/fetch-existing-data", async (req, res) => {
+  console.log("bheja", req.body.username);
+  const requestBody = req.body.username;
+  temporaryData = requestBody;
+  console.log("rebody", requestBody);
+  console.log("te", temporaryData);
   res.json({ requestBody });
 });
-app.get("/fetch-existing-data", (req, res) => {
-  const username = res.locals.requestBody;
-  console.log(username);
-  const sql = `SELECT 
-    s.NAME, s.USN, s.PHONE_NUMBER, s.EMAIL, s.BATCH, s.CURRENT_SEMESTER, s.BACKLOG,
-    p.NO_OF_PROJECT, p.PROJECT1, p.PROJECT2, p.PROJECT3, p.PROJECT4, p.PROJECT5,
-    m.SEM1, m.SUB1, m.SUB2, m.SUB3, m.SUB4, m.SUB5,
-    o.ACTIVITY_NAME, o.INTERNSHIP_DOMAIN
-  FROM 
-    student s
-  JOIN 
-    project p ON s.USN = p.USN
-  JOIN 
-    marks m ON s.USN = m.USN
-  JOIN 
-    otheractivities o ON s.USN = o.USN;
-  `;
+app.get("/fetch-existing-data", async (req, res) => {
+  if (temporaryData) {
+    // dataFetched = true;
+    const username = temporaryData;
+    console.log("username is", username);
 
-  con.query(sql, [username], (err, result) => {
-    if (err) {
-      console.log(err.message);
-      res.status(500).send("internal server error");
-    } else {
-      if (result.length > 0) {
-        res.json({ result });
-      } else {
-        res.json({});
-      }
+    if (username) {
+      // Fetch userid based on username
+      con.query(
+        "SELECT userid FROM USERS WHERE USERNAME=?",
+        [username],
+        (err, userResult) => {
+          if (err) {
+            console.log(err.message);
+            res.status(500).send("internal server error");
+          } else {
+            if (userResult.length > 0) {
+              const userid = userResult[0].userid;
+
+              // Use userid to fetch additional data
+              const sql = `
+              SELECT 
+                s.NAME, s.USN, s.PHONE_NUMBER, s.EMAIL, s.BATCH, s.CURRENT_SEMESTER,s.SECTION, s.BACKLOG,
+                p.NO_OF_PROJECT, p.PROJECT1, p.PROJECT2, p.PROJECT3, p.PROJECT4, p.PROJECT5,
+                m.SEM1, m.SUB1, m.SUB2, m.SUB3, m.SUB4, m.SUB5,
+                o.ACTIVITY_NAME, o.INTERNSHIP_DOMAIN
+              FROM 
+                student s
+              JOIN 
+                project p ON s.USN = p.USN
+              JOIN 
+                marks m ON s.USN = m.USN
+              JOIN 
+                otheractivities o ON s.USN = o.USN
+              WHERE
+                s.USN = ?;
+            `;
+
+              con.query(sql, [userid], (err, result) => {
+                if (err) {
+                  console.log(err.message);
+                  res.status(500).send("internal server error");
+                } else {
+                  if (result.length > 0) {
+                    console.log("result", result);
+                    res.json(result);
+                  } else {
+                    res.json({});
+                  }
+                }
+              });
+            } else {
+              res.json({});
+            }
+          }
+        }
+      );
     }
-  });
+  }
 });
 
 app.listen(PORT, () => {

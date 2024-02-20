@@ -15,7 +15,7 @@ function Home() {
   const [email, setemail] = useState("");
   const [batch, setBatch] = useState("");
   const [sem, setSem] = useState("");
-  const [activity, setActivity] = useState("");
+  const [activity, setActivity] = useState("0");
   const [activityName, setActivityName] = useState("");
   const [cgpa1, setCgpa1] = useState("0");
   const [sub1, setSub1] = useState("0");
@@ -29,38 +29,39 @@ function Home() {
   const [project3, setProject3] = useState("");
   const [project4, setProject4] = useState("");
   const [project5, setProject5] = useState("");
-  const [internship, setInternship] = useState("");
+  const [internship, setInternship] = useState("0");
   const [internshipName, setInternshipName] = useState("");
-  const [section,setSection]=useState("");
-  const [backlog, setBacklog] = useState("");
+  const [section, setSection] = useState("");
+  const [backlog, setBacklog] = useState("0");
 
   useEffect(() => {
     Axios.get("http://localhost:8000/fetch-existing-data")
       .then((response) => {
-        console.log(response.data[0].NAME);
-        setFetchedData(response.data[0])
+        console.log(response.data[0].SECTION);
+        setFetchedData(response.data[0]);
         // if (response.data) {
-          setName(response.data[0].NAME || "");
-          setusn(response.data[0].USN || "");
-          setpno(response.data[0].PHONE_NUMBER || "");
-          setemail(response.data[0].EMAIL || "");
-          setBatch(response.data[0].BATCH || "");
-          setSem(response.data[0].CURRENT_SEMESTER || "");
-          setActivityName(response.data[0].ACTIVITY_NAME || "");
-          setCgpa1(response.data[0].SEM1 || "0");
-          setSub1(response.data[0].SUB1 || "0");
-          setSub2(response.data[0].SUB2 || "0");
-          setSub3(response.data[0].SUB3 || "0");
-          setSub4(response.data[0].SUB4 || "0");
-          setSub5(response.data[0].SUB5 || "0");
-          setNumberOfProjects(response.data[0].NO_OF_PROJECT || 0);
-          setProject1(response.data[0].PROJECT1 || "");
-          setProject2(response.data[0].PROJECT2 || "");
-          setProject3(response.data[0].PROJECT3 || "");
-          setProject4(response.data[0].PROJECT4 || "");
-          setProject5(response.data[0].PROJECT5 || "");
-          setInternshipName(response.data[0].INTERNSHIP_DOMAIN || "");
-          setBacklog(response.data[0].BACKLOG || "");
+        setName(response.data[0].NAME || "");
+        setusn(response.data[0].USN || "");
+        setpno(response.data[0].PHONE_NUMBER || "");
+        setemail(response.data[0].EMAIL || "");
+        setBatch(response.data[0].BATCH || "");
+        setSem(response.data[0].CURRENT_SEMESTER || "");
+        setActivityName(response.data[0].ACTIVITY_NAME || "");
+        setCgpa1(response.data[0].SEM1 || "0");
+        setSub1(response.data[0].SUB1 || "0");
+        setSub2(response.data[0].SUB2 || "0");
+        setSub3(response.data[0].SUB3 || "0");
+        setSub4(response.data[0].SUB4 || "0");
+        setSub5(response.data[0].SUB5 || "0");
+        setNumberOfProjects(response.data[0].NO_OF_PROJECT || 0);
+        setProject1(response.data[0].PROJECT1 || "");
+        setProject2(response.data[0].PROJECT2 || "");
+        setProject3(response.data[0].PROJECT3 || "");
+        setProject4(response.data[0].PROJECT4 || "");
+        setProject5(response.data[0].PROJECT5 || "");
+        setInternshipName(response.data[0].INTERNSHIP_DOMAIN || "");
+        setSection(response.data[0].SECTION || "");
+        setBacklog(response.data[0].BACKLOG || "");
         // }
       })
       .catch((error) => {
@@ -76,7 +77,7 @@ function Home() {
       pno: pno,
       batch: batch,
       sem: sem,
-      section:section,
+      section: section,
       sem1: cgpa1,
       sub1: sub1,
       sub2: sub2,
@@ -111,9 +112,9 @@ function Home() {
       IAMARKS_SUB4: parseInt(sub4),
       IAMARKS_SUB5: parseInt(sub5),
       NUMBER_PROJECT: numberOfProjects,
-      INTERNSHIP: 0,
-      BACKLOGS: 0,
-      EXTRA_ACTIVITIES: 1, //activity,
+      INTERNSHIP: parseInt(internship),
+      BACKLOGS: parseInt(backlog),
+      EXTRA_ACTIVITIES: parseInt(activity), //activity,
     })
       .then((response) => {
         const prediction = response.data.prediction;
@@ -166,7 +167,7 @@ function Home() {
             onChange={(event) => {
               setusn(event.target.value);
             }}
-            value={fetchedData.USN||usn}
+            value={fetchedData.USN || usn}
           />
           <br />
           <label htmlFor="phn">
@@ -212,7 +213,7 @@ function Home() {
             <strong>Enter Current Semester</strong>
           </label>
           <input
-            type="sem"
+            type="text"
             id="sem"
             placeholder="Enter Current Semester"
             onChange={(event) => {
@@ -225,15 +226,15 @@ function Home() {
             <strong>Enter Section</strong>
           </label>
           <input
-            type="section"
+            type="text"
             id="section"
             placeholder="Enter Section"
             onChange={(event) => {
               setSection(event.target.value);
             }}
+            value={fetchedData.SECTION}
           />
           <br />
-
           <hr />
           <h2>Project Information</h2>
           <br></br>

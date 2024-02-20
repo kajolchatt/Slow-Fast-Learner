@@ -42,7 +42,7 @@ function Login() {
               history("/home");
             }
         }
-        else if (res.data == "notexist") {
+        else if (res.data === "notexist") {
             alert("User have not signed up!");
           } else {
             console.log(res.data.token);
@@ -56,6 +56,7 @@ function Login() {
     } catch (e) {
       console.log(e);
     }
+    console.log({username})
     await axios
       .post("http://localhost:8000/fetch-existing-data", { username })
       .then((res) => {
