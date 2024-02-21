@@ -8,6 +8,7 @@ import Axios from 'axios'; // Import Axios
 function AdminPage() {
     const [cards, setCards] = useState([]);
     const [batch,setbatch]=useState(0);
+    const [showWelcomeMessage, setShowWelcomeMessage] = useState(true); // State to track the welcome message
     const navigate = useNavigate();
 
     const handleAddCard = () => {
@@ -16,6 +17,7 @@ function AdminPage() {
             batchNumber: 2023 + cards.length + 1
         };
         setCards([...cards, newCard]);
+        setShowWelcomeMessage(false); // Hide the welcome message when a card is added
     }
 
     const handleCardClick = (batchNumber) => {
@@ -35,6 +37,11 @@ function AdminPage() {
         <>
             <Navbar />
             <ImageBg />
+            {showWelcomeMessage && (
+                <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '70vh' }}>
+                <p style={{ textAlign: 'center' }}>Welcome, Admin! Click the + button at the bottom right to add a batch.</p>
+            </h1>
+            )}
             {cards.map((card, index) => (
                 <div key={index} onClick={() => handleCardClick(card.batchNumber)}>
                     <Card batchNumber={card.batchNumber} />

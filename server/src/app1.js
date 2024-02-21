@@ -21,6 +21,7 @@ app.use(cors());
 //OTP GENERATION ROUTE
 let responsesReceived = 0;
 const otpStorage = {};
+const otpStorage1={}
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -63,7 +64,7 @@ app.post("/generate-otp", async (req, res) => {
 
 
 
-//OTP GENERATION ROUTE FOR FORGET PASSWORD
+//OTP GENERATION ROUTE FOR FORGET PASSWORD:here otp will be generated and will be sent to user email id
 
 app.post("/otpPage", async (req, res) => {
   
@@ -72,7 +73,7 @@ app.post("/otpPage", async (req, res) => {
     const { useremail } = req.body;
     console.log(useremail);
       const otp = Math.floor(100000 + Math.random() * 900000);
-      otpStorage[useremail] = otp;
+      otpStorage1[useremail] = otp;
 
       const mailOptions = {
         from: user,
@@ -85,19 +86,10 @@ app.post("/otpPage", async (req, res) => {
       res.json("success");
     
   } catch (error) {
-    console.error("Error generating and sending otp", error.message);
+    console.error("Error generating and sending otp ", error.message);
     res.status(500).json({ error: "failed to generate and send otp" });
   }
 });
-
-
-
-
-
-
-
-
-
 
 
 
@@ -139,7 +131,7 @@ app.post("/login", async (req, res) => {
 
 
 
-//FORGETPASSWORD ROUTE
+//FORGETPASSWORD ROUTE:for entering email id in which otp will be send
 app.post("/forgetPassword", async (req, res) => {
   const { useremail } = req.body;
   console.log(useremail);
@@ -163,6 +155,58 @@ app.post("/forgetPassword", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+//OTPPAGE1 ROUTE:for verifying reset password otp
+
+
+app.post("/otpPage1", async (req, res) => {
+  const { useremail,OTP } = req.body;
+  const data = {
+    useremail: useremail
+  };
+console.log(useremail);
+  console.log("otp sent is", OTP);
+  console.log("otpStorage1[otp] is", otpStorage1[useremail]);
+  try {
+   
+      if (otpStorage1[useremail] && OTP === otpStorage1[useremail]) {
+        delete otpStorage1[useremail];
+        const checkResult = await queryAsync(
+          "SELECT * FROM users WHERE username=?",
+          [useremail]
+        );
+
+        if (checkResult && checkResult.length > 0) {
+          //generate jwt token
+          const token = jwt.sign({useremail}, JWT_SECRET, {
+            expiresIn: "1h",
+          });
+          res.json({ token, message: "exist" });
+          
+        } else {
+
+          res.json("not exist");
+          
+          
+        }
+        
+      } else {
+        res.status(401).json({ error: "invalid OTP" });
+      }
+    
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+
+
+
+
+
+
+
 
 
 //SIGNUP ROUTE
@@ -250,6 +294,30 @@ async function queryAsync(sql, values) {
 
 
 
+//PASSWORD UPDATION
+app.post("/passwordUpdate", async (req, res) => {
+  const { useremail, newPassword } = req.body;
+  const data = {
+    useremail: useremail,
+    newPassword: newPassword,
+  };
+  console.log("Received username:", useremail);
+  console.log("Received newpassword:", newPassword);
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+          data.newPassword = hashedPassword;
+  con.query(
+    `UPDATE users SET password= ? WHERE username= ?`,
+    [data.newPassword, useremail],
+    (err, result) => {
+      if (err) {
+        console.log(err.message);
+        res.status(500).send("error in updating password");
+      } else {
+        res.status(200).json(result);
+      }
+    }
+  );
+});
 
 
 

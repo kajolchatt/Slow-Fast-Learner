@@ -10,6 +10,8 @@ import Filter from "./Filter";
 import ThankYou from "./Thankyou";
 import ForgetPassword from "./ForgetPassword";
 import OtpPage from "./OtpPage";
+import UpdatePassword from "./UpdatePassword";
+import PasswordUpdated from "./PasswordUpdated";
 function RouteApp() {
   return (
     <>
@@ -24,6 +26,8 @@ function RouteApp() {
         <Route path="/thank-you" element={<ThankYou />} />
         <Route path="/forgetPassword" element={<ForgetPassword/>}></Route>
         <Route path="/otpPage" element={<OtpPage/>}></Route>
+        <Route path="/updatePassword" element={<UpdatePassword/>}></Route>
+        <Route path="/passwordUpdated" element={<PasswordUpdated/>}></Route>
       </Routes>
     </>
   );

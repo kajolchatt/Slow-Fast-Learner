@@ -1,0 +1,47 @@
+/* otpPage.css */
+
+/* Container styling */
+.otp-page-container {
+    max-width: 500px;
+    height: 350px;
+    align-content: center;
+    margin:10% auto;
+    padding: 50px ;
+    background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 30px;
+  }
+  
+  /* Label styling */
+  .otp-label {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  /* Input field styling */
+  .otp-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  /* Button styling */
+  .otp-submit-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Button hover effect */
+  .otp-submit-button:hover {
+    background-color: #0056b3;
+  }
+  

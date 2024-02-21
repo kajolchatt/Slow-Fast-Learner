@@ -64,23 +64,21 @@ function OtherPage() {
             });
     };
     
-    const history = useNavigate();; 
-    const handleLogout=()=>{
-      localStorage.removeItem('token');
-      history("/login");
-    }
+    const history = useNavigate();
+    
     return (
         <div>
             <Navbar />
             <ImageBg />
-            <button class="logout" onClick={handleLogout}>Logout</button>
+            
             <h1 >Batch Number: {batchNumber}</h1>
             <hr />
 
-            <button className="filter" onClick={getStudent}>Show Students</button>
-            <button className="filter" onClick={getPrediction1}>Show Fast Learners</button>
-            <button className="filter" onClick={getPrediction0}>Show Slow Learners</button>
-            
+            <div style={{ textAlign: "center" }}>
+                <button className="filter" onClick={getStudent}>Show Students</button>
+                <button className="filter" onClick={getPrediction1}>Show Fast Learners</button>
+                <button className="filter" onClick={getPrediction0}>Show Slow Learners</button>
+            </div>
 
 
 

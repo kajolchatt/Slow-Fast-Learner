@@ -7,8 +7,7 @@ import Axios from "axios";
 import ImageBg from "./ImageBg";
 import Navbar from "./Navbar";
 import ProtectedRoute from "./ProtectedRoute";
-import { useHistory } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+
 function Home() {
  
   const [fetchedData, setFetchedData] = useState({});
@@ -147,16 +146,13 @@ function Home() {
   };
 
   const history = useNavigate();
-  const handleLogout=()=>{
-    localStorage.removeItem('token');
-    history("/login");
-  }
+ 
   return (
     <>
       <Navbar />
       <ImageBg />
       <ProtectedRoute path="/home" component={Home} />
-      <button class="logout" onClick={handleLogout}>Logout</button>
+      
       <div className="homepage">
         <h1>Hello  and welcome to the home</h1> 
         

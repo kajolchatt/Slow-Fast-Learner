@@ -5,6 +5,12 @@ import "../App.css";
 import ImageBg from "./ImageBg";
 import Navbar from "./Navbar";
 import validator from "validator";
+import "./ForgetPassword.css";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Import FontAwesomeIcon
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons"; 
+
+
 
 function ForgetPassword() {
   const history = useNavigate();
@@ -19,8 +25,9 @@ function ForgetPassword() {
 
       if (response.data.token) {
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("useremail", useremail);
         await generateAndSendOtp(useremail);
-        history("/otpPage");
+        history("/otpPage",{useremail});
       } else if (response.data === "notexist") {
         alert("User has not signed up!");
       } else {
@@ -47,24 +54,30 @@ function ForgetPassword() {
     }
   }
 
-  return (
-    <div>
-      <Navbar />
+  return (<>
+  <Navbar />
       <ImageBg />
-      <label htmlFor="useremail">Email</label>
+  <div className="forget-password-container">
+      
+  <label htmlFor="useremail" style={{fontSize:"30px"}}>Email &nbsp;
+        <FontAwesomeIcon icon={faEnvelope} style={{color:"#0056b3"}}/> {/* Email icon */}
+        
+      </label>
       <input
         type="text"
         placeholder="Enter your email"
         id="useremail"
+        className="forget-password-input"
         value={useremail}
         onChange={(event) => {
           setUserEmail(event.target.value);
         }}
       />
-      <button type="submit" onClick={submit}>
+      <button type="submit" className="forget-password-button" onClick={submit}>
         Submit
       </button>
-    </div>
+    </div></>
+    
   );
 }
 
