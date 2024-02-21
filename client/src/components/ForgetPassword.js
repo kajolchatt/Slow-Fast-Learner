@@ -27,6 +27,7 @@ function ForgetPassword() {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("useremail", useremail);
         await generateAndSendOtp(useremail);
+        alert(`Otp sent to ${useremail}`);
         history("/otpPage",{useremail});
       } else if (response.data === "notexist") {
         alert("User has not signed up!");
