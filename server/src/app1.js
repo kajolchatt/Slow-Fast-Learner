@@ -12,6 +12,7 @@ const bcrypt = require("bcrypt");
 const user = process.env.EMAIL_USER;
 const pass = process.env.EMAIL_PASS;
 const tomail = process.env.EMAIL_SEND;
+
 const JWT_SECRET = process.env.JWT_SECRET;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -53,12 +54,64 @@ app.post("/generate-otp", async (req, res) => {
   }
 });
 
+
+
+
+
+
+
+
+
+
+//OTP GENERATION ROUTE FOR FORGET PASSWORD
+
+app.post("/otpPage", async (req, res) => {
+  
+  console.log("before otp generation");
+  try {
+    const { useremail } = req.body;
+    console.log(useremail);
+      const otp = Math.floor(100000 + Math.random() * 900000);
+      otpStorage[useremail] = otp;
+
+      const mailOptions = {
+        from: user,
+        to: useremail,
+        subject: "RESET PASSWORD OTP",
+        text: `The OTP for reset password is ${otp}`,
+      };
+
+      await transporter.sendMail(mailOptions);
+      res.json("success");
+    
+  } catch (error) {
+    console.error("Error generating and sending otp", error.message);
+    res.status(500).json({ error: "failed to generate and send otp" });
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //LOGIN ROUTE
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const result = await queryAsync("SELECT * FROM users WHERE username=?", [
+      const result = await queryAsync("SELECT * FROM users WHERE username=?", [
       username,
     ]);
 
@@ -83,6 +136,34 @@ app.post("/login", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+
+
+//FORGETPASSWORD ROUTE
+app.post("/forgetPassword", async (req, res) => {
+  const { useremail } = req.body;
+  console.log(useremail);
+  try {
+      const result = await queryAsync("SELECT * FROM users WHERE username=?", [
+        useremail
+    ]);
+
+    if (result && result.length > 0) {
+        //Generate JWT token
+        var token = jwt.sign({useremail}, JWT_SECRET, {
+          expiresIn: "1h",
+        });
+      res.json( {token });
+      // res.json("exist");
+    } else {
+      res.json("notexist");
+    }
+  } catch (error) {
+    console.error("Error in login:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 
 //SIGNUP ROUTE
 app.post("/signup", async (req, res) => {
@@ -163,6 +244,14 @@ async function queryAsync(sql, values) {
     });
   });
 }
+
+
+
+
+
+
+
+
 
 // *************************************HOMEPAGE*************************************************************************************
 const PORT = process.env.PORT || 8000;

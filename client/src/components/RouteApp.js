@@ -8,6 +8,8 @@ import AdminPage from "./AdminPage";
 import OtherPage from "./OtherPage";
 import Filter from "./Filter";
 import ThankYou from "./Thankyou";
+import ForgetPassword from "./ForgetPassword";
+import OtpPage from "./OtpPage";
 function RouteApp() {
   return (
     <>
@@ -20,6 +22,8 @@ function RouteApp() {
         <Route path="/otherpage" element={<OtherPage />} />
         <Route path="/filter" element={<Filter />} />
         <Route path="/thank-you" element={<ThankYou />} />
+        <Route path="/forgetPassword" element={<ForgetPassword/>}></Route>
+        <Route path="/otpPage" element={<OtpPage/>}></Route>
       </Routes>
     </>
   );

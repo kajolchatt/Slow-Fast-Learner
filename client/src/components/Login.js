@@ -20,9 +20,7 @@ function Login() {
           password,
         })
         .then((res) => {
-          // if (res.data == "exist") {
-          //   history("/home", { state: { id: username } });
-          // }
+
           if (res.data.token) {
             localStorage.setItem("token", res.data.token);
             const token = localStorage.getItem("token");
@@ -97,6 +95,7 @@ function Login() {
 
         <p>OR</p>
         <Link to="/signup">Signup page</Link>
+        <Link to="/forgetPassword">Forget password ?</Link>
       </div>
     </>
   );
