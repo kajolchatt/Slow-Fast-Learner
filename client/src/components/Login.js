@@ -5,14 +5,21 @@ import "../App.css";
 import ImageBg from "./ImageBg";
 import Navbar from "./Navbar";
 import { jwtDecode } from "jwt-decode";
+import ModalWindowLoader from "./ModalWindowLoader";
 
 function Login() {
   const history = useNavigate();
   const [username, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [loading, setLoading] = useState(false);
   async function submit(e) {
     e.preventDefault();
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      history("/home");
+    }, 300);
     try {
       await axios
         .post("http://localhost:8000/login", {
@@ -80,7 +87,7 @@ function Login() {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
-            placeholder="email"
+            placeholder="Enter Email Id"
             required
           ></input>{" "}
           <br />
@@ -89,11 +96,12 @@ function Login() {
             onChange={(e) => {
               setPassword(e.target.value);
             }}
-            placeholder="password"
+            placeholder="Enter Password"
             required
           ></input>
           <br />
           <input type="submit" onClick={submit} />
+          {loading && <ModalWindowLoader loading={loading} />}
         </form>
 
         <p>OR</p>
@@ -104,10 +112,10 @@ function Login() {
           style={{
             width: "40%",
             height: "2px",
-            marginLeft:"30%",
+            marginLeft: "30%",
             backgroundColor: "rgb(176, 176, 176)",
             marginBottom: "25px",
-            marginTop:"13px"
+            marginTop: "13px",
           }}
         ></div>
         <Link to="/forgetPassword" className="links">

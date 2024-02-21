@@ -165,7 +165,7 @@ function Home() {
         <h1>Fill up your details</h1>
         <br />
         <div
-          style={{ width: "80%", height: "3px", backgroundColor: "rgb(176, 176, 176)" ,marginBottom:"25px"}}
+          style={{ width: "60%", height: "3px", backgroundColor: "rgb(176, 176, 176)" ,marginBottom:"25px"}}
         ></div>
         <h2>Personal Information</h2>
         <div className="information">
@@ -227,7 +227,7 @@ function Home() {
           <input
             type="text"
             id="batch"
-            placeholder="Enter batch"
+            placeholder="Enter Batch"
             onChange={(event) => {
               setBatch(event.target.value);
             }}
@@ -261,7 +261,7 @@ function Home() {
           <br />
           <hr />
           <div
-          style={{ width: "80%", height: "3px", backgroundColor: "rgb(176, 176, 176)" ,marginBottom:"25px"}}
+          style={{ width: "60%", height: "3px", backgroundColor: "rgb(176, 176, 176)" ,marginBottom:"25px"}}
         ></div>
           <h2>Project Information</h2>
           <br></br>
@@ -271,7 +271,7 @@ function Home() {
           <input
             type="text"
             id="numberOfProjects"
-            placeholder="Enter no of projects done"
+            placeholder="Enter # Projects Done"
             onChange={(event) => {
               setNumberOfProjects(event.target.value);
             }}
@@ -339,7 +339,7 @@ function Home() {
           <br></br>
           <br></br>
           <div
-          style={{ width: "80%", height: "3px", backgroundColor: "rgb(176, 176, 176)" ,marginBottom:"25px"}}
+          style={{ width: "60%", height: "3px", backgroundColor: "rgb(176, 176, 176)" ,marginBottom:"25px"}}
         ></div>
           <h2>Academic Details</h2>
           <label htmlFor="cgpa1">
@@ -436,7 +436,7 @@ function Home() {
           <br />
           <br />
           <div
-          style={{ width: "80%", height: "3px", backgroundColor: "rgb(176, 176, 176)" ,marginBottom:"25px"}}
+          style={{ width: "60%", height: "3px", backgroundColor: "rgb(176, 176, 176)" ,marginBottom:"25px"}}
         ></div>
           <h3>Other Skills</h3>
           <label htmlFor="activity">
@@ -460,7 +460,7 @@ function Home() {
           <input
             type="text"
             id="internship"
-            placeholder="Enter **no** if none else enter internship domain"
+            placeholder="Enter Internship Details (if not write no)"
             onChange={(event) => {
               if (event.target.value.toUpperCase() === "NO") {
                 setInternship(0);

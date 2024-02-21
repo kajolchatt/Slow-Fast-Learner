@@ -34,7 +34,11 @@ function Navbar() {
             src="https://www.rnsit.ac.in/wp-content/themes/rnsit/webp/logo.webp"
             style={inlinestyle}
           />
-          <NavLink to={"/"} className="link-without-underline" activeClassName="active-link">
+          <NavLink
+            to={"/"}
+            className="link-without-underline"
+            activeClassName="active-link"
+          >
             <h4 className="d-none d-lg-block" style={{ cursor: "pointer" }}>
               Home
             </h4>
@@ -43,7 +47,11 @@ function Navbar() {
           <h4 className="d-none d-lg-block" style={{ cursor: "pointer" }}>
             Contact
           </h4>
-          <NavLink to={"/about"} className="link-without-underline" activeClassName="active-link">
+          <NavLink
+            to={"/about"}
+            className="link-without-underline"
+            activeClassName="active-link"
+          >
             <h4 className="d-none d-lg-block" style={{ cursor: "pointer" }}>
               About
             </h4>
@@ -63,6 +71,7 @@ function Navbar() {
           >
             Logout
           </h4>
+
           {/* Toggle button for small screens */}
           <button
             className="navbar-toggler d-lg-none"

@@ -12,7 +12,7 @@ function Start() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   React.useEffect(() => {
-    const typed = new Typed(el.current, {
+    const typed = new Typed(el.current, { 
       strings: [
         "Hello There",
         "Welcome to RNSIT",
@@ -35,7 +35,7 @@ function Start() {
     setTimeout(() => {
       setLoading(false);
       navigate("/signup");
-    }, 200);
+    }, 300);
   };
   return (
     <>

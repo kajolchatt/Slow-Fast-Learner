@@ -12,7 +12,7 @@ function ModalWindowLoader() {
 
   return (
     <div style={containerStyle}>
-      <MoonLoader color="blue" size={45} />
+      <MoonLoader color="blue" size={40} />
     </div>
   );
 }

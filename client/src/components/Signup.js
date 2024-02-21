@@ -7,6 +7,7 @@ import ImageBg from "./ImageBg";
 import Navbar from "./Navbar";
 import validator from "validator";
 import "boxicons";
+import ModalWindowLoader from "./ModalWindowLoader";
 
 function Signup() {
   const history = useNavigate();
@@ -16,6 +17,8 @@ function Signup() {
   const [userid, setUserid] = useState("");
   const [otp, setOtp] = useState();
   const [otpSent, setOtpSent] = useState(false);
+
+  const [loading, setLoading] = useState(false);
 
   async function generateAndSendOtp(e) {
     e.preventDefault();
@@ -47,6 +50,11 @@ function Signup() {
   }
   async function submit(e) {
     e.preventDefault();
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      history("/login");
+    }, 300);
 
     try {
       if (type === "Admin" && !otpSent) {
@@ -101,7 +109,7 @@ function Signup() {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
-            placeholder="email"
+            placeholder="Enter Email Id"
           ></input>
           <br />
           <input
@@ -109,7 +117,7 @@ function Signup() {
             onChange={(e) => {
               setPassword(e.target.value);
             }}
-            placeholder="password"
+            placeholder="Enter Password"
           ></input>
           <br />
           <input
@@ -117,7 +125,7 @@ function Signup() {
             onChange={(e) => {
               setUserid(e.target.value);
             }}
-            placeholder="userId->FacultyId or Usn"
+            placeholder="Enter FacultyId or USN"
           ></input>
           <br />
 
@@ -156,6 +164,8 @@ function Signup() {
           )}
 
           <input type="submit" onClick={submit} />
+
+          {loading && <ModalWindowLoader loading={loading} />}
         </form>
         <p>OR</p>
         <Link className="links" to="/login">
