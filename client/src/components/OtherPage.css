@@ -28,3 +28,12 @@ button:hover {
     background-color: grey;
 }
 
+.filter{
+    width: 250px;
+    height:50px;
+    font-size: 20px;
+}
+.filter:hover{
+    background-color: rgb(235, 106, 59);
+    /* font-weight: bold; */
+}

@@ -8,7 +8,7 @@ import Axios from "axios";
 import ImageBg from "./ImageBg";
 import Navbar from "./Navbar";
 import ProtectedRoute from "./ProtectedRoute";
-// import { useNavigate } from "react-router-dom";
+
 function Home() {
   const [fetchedData, setFetchedData] = useState({});
   const [name, setName] = useState("");
@@ -148,12 +148,10 @@ function Home() {
   };
 
   const history = useNavigate();
-  const handleLogout = () => {
-    localStorage.removeItem("token");
+  const handleLogout=()=>{
+    localStorage.removeItem('token');
     history("/login");
-  };
-  const location = useLocation();
-  const username = location.state && location.state.username;
+  }
   return (
     <>
     <div className="orange-bg" style={{backgroundColor: "orangered",
@@ -161,9 +159,8 @@ function Home() {
       <Navbar />
       <ImageBg />
       <ProtectedRoute path="/home" component={Home} />
-      {/* <button class="logout" onClick={handleLogout}>Logout</button> */}
       <div className="homepage">
-        <h1>Hello {username} and welcome to the home</h1>
+        <h1>Hello and welcome to the home</h1>
 
         <h1>Fill up your details</h1>
         <br />
