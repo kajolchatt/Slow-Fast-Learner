@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../App.css";
 // import { useLocation, Link } from "react-router-dom";
 import "./Home.css";
+import "./Signup.css"
 import Axios from "axios";
 import ImageBg from "./ImageBg";
 import Navbar from "./Navbar";

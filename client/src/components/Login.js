@@ -4,8 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import "../App.css";
 import ImageBg from "./ImageBg";
 import Navbar from "./Navbar";
-import { jwtDecode } from 'jwt-decode';
-
+import { jwtDecode } from "jwt-decode";
 
 function Login() {
   const history = useNavigate();
@@ -28,21 +27,20 @@ function Login() {
             localStorage.setItem("token", res.data.token);
             const token = localStorage.getItem("token");
 
-              // Decode the JWT token to access its payload
-              const decodedToken = jwtDecode(token);
+            // Decode the JWT token to access its payload
+            const decodedToken = jwtDecode(token);
 
-              // Access the 'type' property from the decoded token
-              const userType = decodedToken.type;
+            // Access the 'type' property from the decoded token
+            const userType = decodedToken.type;
             // const userType = res.data.token.type;
             if (userType === "Admin") {
-                history("/adminPage");
+              history("/adminPage");
             } else if (userType === "Student") {
-                history("/home");
+              history("/home");
             } else {
               history("/home");
             }
-        }
-        else if (res.data === "notexist") {
+          } else if (res.data === "notexist") {
             alert("User have not signed up!");
           } else {
             console.log(res.data.token);
@@ -56,11 +54,11 @@ function Login() {
     } catch (e) {
       console.log(e);
     }
-    console.log({username})
+    console.log({ username });
     await axios
       .post("http://localhost:8000/fetch-existing-data", { username })
       .then((res) => {
-        console.log("log",res);
+        console.log("log", res);
       })
       .catch((err) => {
         console.log(err);
@@ -72,6 +70,7 @@ function Login() {
       <Navbar />
       <ImageBg />
       <div className="login">
+        <box-icon name="user" color=" rgb(22, 22, 137)" size="lg"></box-icon>
         <h1>Login</h1>
 
         <form action="POST" className="form">
@@ -84,7 +83,6 @@ function Login() {
             required
           ></input>{" "}
           <br />
-          <br />
           <input
             type="password"
             onChange={(e) => {
@@ -94,13 +92,10 @@ function Login() {
             required
           ></input>
           <br />
-          <br />
           <input type="submit" onClick={submit} />
         </form>
 
-        <br />
         <p>OR</p>
-        <br />
         <Link to="/signup">Signup page</Link>
       </div>
     </>

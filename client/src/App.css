@@ -1,4 +1,4 @@
-.login{
+/* .login{
   text-align: center;
   margin-top: 10%;
   height: 700px;
@@ -16,6 +16,36 @@
 }
 .homepage>h1{
   margin-top: 10%;
+ 
+}
+.type-field{
+  width: 35%;
+  height: 25%;
+  color: gray;
+} */
+
+.login{
+  text-align: center;
+  margin-top: 10%;
+  height: 700px;
+  width: 900px;
+  margin: 2% auto;
+  background-color: rgba(239, 239, 242, 0.82);
+  border: 20px solid 20px solid #c5c5c5; 
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  font-size: 30px;
+}
+
+.login h1{
+  font-size: 40px;
+  margin: auto;
+  font-weight: 100;
+  padding-top: 10px;
+  color: rgb(9, 9, 113);
+}
+.homepage>h1{
+  margin-top: 1%;
  
 }
 .type-field{

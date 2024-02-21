@@ -51,6 +51,7 @@ function Start() {
       </button>
       {loading && <ModalWindowLoader loading={loading} />}
       {/* <RouteApp/> */}
+      {/* <Footer/> */}
     </>
   );
 }
