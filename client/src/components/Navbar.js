@@ -1,9 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import $ from "jquery";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import "./Navbar.css";
-import { useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -11,20 +11,20 @@ function Navbar() {
 
   const inlinestyle = {
     marginLeft: "10%",
-    cursor: "pointer" // Add cursor pointer style
+    cursor: "pointer", // Add cursor pointer style
   };
 
   const toggleNavbar = () => {
     setIsNavOpen(!isNavOpen);
   };
 
-  const handleLogin=()=>{
+  const handleLogin = () => {
     navigate("/login");
-  }
+  };
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     navigate("/login"); // Use navigate function to redirect
-  }
+  };
 
   return (
     <>
@@ -34,11 +34,35 @@ function Navbar() {
             src="https://www.rnsit.ac.in/wp-content/themes/rnsit/webp/logo.webp"
             style={inlinestyle}
           />
-          <h4 className="d-none d-lg-block" style={{ cursor: "pointer" }}>Home</h4>
-          <h4 className="d-none d-lg-block" style={{ cursor: "pointer" }}>Contact</h4>
-          <h4 className="d-none d-lg-block" style={{ cursor: "pointer" }}>About</h4>
-          <h4 className="d-none d-lg-block" style={{ cursor: "pointer" }} onClick={handleLogin}>Login</h4>
-          <h4 className="log d-none d-lg-block" style={{ cursor: "pointer" }} onClick={handleLogout}>Logout</h4>
+          <NavLink to={"/"} className="link-without-underline" activeClassName="active-link">
+            <h4 className="d-none d-lg-block" style={{ cursor: "pointer" }}>
+              Home
+            </h4>
+          </NavLink>
+
+          <h4 className="d-none d-lg-block" style={{ cursor: "pointer" }}>
+            Contact
+          </h4>
+          <NavLink to={"/about"} className="link-without-underline" activeClassName="active-link">
+            <h4 className="d-none d-lg-block" style={{ cursor: "pointer" }}>
+              About
+            </h4>
+          </NavLink>
+
+          <h4
+            className="d-none d-lg-block"
+            style={{ cursor: "pointer" }}
+            onClick={handleLogin}
+          >
+            Login/Signup
+          </h4>
+          <h4
+            className="log d-none d-lg-block"
+            style={{ cursor: "pointer" }}
+            onClick={handleLogout}
+          >
+            Logout
+          </h4>
           {/* Toggle button for small screens */}
           <button
             className="navbar-toggler d-lg-none"
@@ -54,14 +78,16 @@ function Navbar() {
 
           {/* Offcanvas content */}
           <div
-            className={`offcanvas offcanvas-end d-lg-none ${isNavOpen ? 'show' : ''}`}
+            className={`offcanvas offcanvas-end d-lg-none ${
+              isNavOpen ? "show" : ""
+            }`}
             tabIndex="-1"
             id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel"
           >
             <div className="offcanvas-header">
               <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
-                DASHBOARD
+                NAVBAR
               </h5>
               <button
                 type="button"
@@ -80,7 +106,22 @@ function Navbar() {
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="#">
-                    Link
+                    Contact
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    About
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Login/Signup
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Logout
                   </a>
                 </li>
               </ul>

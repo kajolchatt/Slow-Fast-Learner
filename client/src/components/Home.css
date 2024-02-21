@@ -36,16 +36,17 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color:rgb(205, 203, 241); 
+    background-color: rgba(239, 239, 242, 0.82); 
     color: black;
+    /* color: ; */
   }
   .homepage h1
   { 
     margin-bottom: 10px;
-    font-weight: 700;
+    font-weight: lighter;
     text-transform: uppercase; 
     letter-spacing: 2px; 
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); */
   }
   .homepage h2
   { 
@@ -53,7 +54,7 @@
     font-weight: 300;
     text-transform: uppercase; 
     letter-spacing: 2px; 
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); */
   }
   .information {
     display: flex;
@@ -61,7 +62,7 @@
     width: 100%;
     justify-content: center;
     align-items: center;
-    background-color: rgb(198,194,255); 
+    background-color: rgba(239, 239, 242, 0.82); 
   }
   
   .information h1 {
@@ -92,7 +93,8 @@
   .information button {
     width: 320px;
     height: 50px;
-    margin-top: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
     background-color: #ff7f00;
     color: #fff; 
     border: none;

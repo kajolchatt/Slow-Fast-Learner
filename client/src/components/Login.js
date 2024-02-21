@@ -20,7 +20,6 @@ function Login() {
           password,
         })
         .then((res) => {
-
           if (res.data.token) {
             localStorage.setItem("token", res.data.token);
             const token = localStorage.getItem("token");
@@ -34,7 +33,7 @@ function Login() {
             if (userType === "Admin") {
               history("/adminPage");
             } else if (userType === "Student") {
-              history("/home");
+              history("/home", { username });
             } else {
               history("/home");
             }
@@ -65,9 +64,13 @@ function Login() {
 
   return (
     <>
+      <div
+        className="orange-bg"
+        style={{ backgroundColor: "orangered", height: "15px" }}
+      ></div>
       <Navbar />
       <ImageBg />
-      <div className="login">
+      <div className="login lo">
         <box-icon name="user" color=" rgb(22, 22, 137)" size="lg"></box-icon>
         <h1>Login</h1>
 
@@ -94,8 +97,22 @@ function Login() {
         </form>
 
         <p>OR</p>
-        <Link to="/signup">Signup page</Link>
-        <Link to="/forgetPassword">Forget password ?</Link>
+        <Link to="/signup" className="links">
+          Signup page
+        </Link>
+        <div
+          style={{
+            width: "40%",
+            height: "2px",
+            marginLeft:"30%",
+            backgroundColor: "rgb(176, 176, 176)",
+            marginBottom: "25px",
+            marginTop:"13px"
+          }}
+        ></div>
+        <Link to="/forgetPassword" className="links">
+          Forget password ?
+        </Link>
       </div>
     </>
   );

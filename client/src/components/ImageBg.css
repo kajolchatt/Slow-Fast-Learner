@@ -2,3 +2,33 @@
     width: 100%;
     height: 150px;
 }
+.image-container {
+    position: relative;
+    text-align: center;
+    height: 150px; /* Set the fixed height */
+    overflow: hidden; /* Hide any overflow content */
+  }
+  
+  .img-bg {
+    width: 100%;
+    height: auto;
+  }
+  
+  .text-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 2em;
+    animation: moveText 10s  linear infinite;
+    display: inline-block;
+  }
+  @keyframes moveText {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-250%);
+    }
+  }

@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "../App.css";
-import { useLocation, Link,useNavigate } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 // import { useLocation, Link } from "react-router-dom";
 import "./Home.css";
-import "./Signup.css"
+import "./Signup.css";
 import Axios from "axios";
 import ImageBg from "./ImageBg";
 import Navbar from "./Navbar";
 import ProtectedRoute from "./ProtectedRoute";
-import { useHistory } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 function Home() {
- 
   const [fetchedData, setFetchedData] = useState({});
   const [name, setName] = useState("");
   const [usn, setusn] = useState("");
@@ -150,22 +148,28 @@ function Home() {
   };
 
   const history = useNavigate();
-  const handleLogout=()=>{
-    localStorage.removeItem('token');
+  const handleLogout = () => {
+    localStorage.removeItem("token");
     history("/login");
-  }
+  };
+  const location = useLocation();
+  const username = location.state && location.state.username;
   return (
     <>
+    <div className="orange-bg" style={{backgroundColor: "orangered",
+    height: "15px"}}></div>
       <Navbar />
       <ImageBg />
       <ProtectedRoute path="/home" component={Home} />
-      <button class="logout" onClick={handleLogout}>Logout</button>
+      {/* <button class="logout" onClick={handleLogout}>Logout</button> */}
       <div className="homepage">
-        <h1>Hello  and welcome to the home</h1> 
-        
-        <h1>Hello and welcome to the home</h1>
+        <h1>Hello {username} and welcome to the home</h1>
+
         <h1>Fill up your details</h1>
         <br />
+        <div
+          style={{ width: "80%", height: "3px", backgroundColor: "rgb(176, 176, 176)" ,marginBottom:"25px"}}
+        ></div>
         <h2>Personal Information</h2>
         <div className="information">
           <label htmlFor="name">
@@ -259,6 +263,9 @@ function Home() {
           />
           <br />
           <hr />
+          <div
+          style={{ width: "80%", height: "3px", backgroundColor: "rgb(176, 176, 176)" ,marginBottom:"25px"}}
+        ></div>
           <h2>Project Information</h2>
           <br></br>
           <label htmlFor="numberOfProjects">
@@ -334,6 +341,9 @@ function Home() {
           />
           <br></br>
           <br></br>
+          <div
+          style={{ width: "80%", height: "3px", backgroundColor: "rgb(176, 176, 176)" ,marginBottom:"25px"}}
+        ></div>
           <h2>Academic Details</h2>
           <label htmlFor="cgpa1">
             <strong>Enter cgpa</strong>
@@ -428,6 +438,9 @@ function Home() {
           />{" "}
           <br />
           <br />
+          <div
+          style={{ width: "80%", height: "3px", backgroundColor: "rgb(176, 176, 176)" ,marginBottom:"25px"}}
+        ></div>
           <h3>Other Skills</h3>
           <label htmlFor="activity">
             <strong>Enter Other Skills</strong>

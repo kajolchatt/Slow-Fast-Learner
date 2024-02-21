@@ -86,10 +86,13 @@ function Signup() {
   }
   return (
     <>
+      <div
+        className="orange-bg"
+        style={{ backgroundColor: "orangered", height: "15px" }}
+      ></div>
       <Navbar />
       <ImageBg />
       <div className="login">
-       
         <box-icon name="user" color=" rgb(22, 22, 137)" size="lg"></box-icon>
         <h1>Signup</h1>
         <form action="POST" className="form">
@@ -136,6 +139,7 @@ function Signup() {
           {type === "Admin" && !otpSent && (
             <>
               <button onClick={generateAndSendOtp}>Generate OTP</button>
+              <br></br>
             </>
           )}
           {type === "Admin" && otpSent && (
@@ -147,13 +151,16 @@ function Signup() {
                 }}
                 placeholder="Enter OTP"
               />
+              <br></br>
             </>
           )}
 
           <input type="submit" onClick={submit} />
         </form>
         <p>OR</p>
-        <Link to="/login">Login page</Link>
+        <Link className="links" to="/login">
+          Login page
+        </Link>
       </div>
     </>
   );

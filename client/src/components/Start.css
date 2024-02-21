@@ -5,7 +5,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 5%;
+    margin-top: 8%;
     font-size: 5vw;
     color: rgb(22, 22, 93);
 }
@@ -14,10 +14,12 @@ body{
     margin-top: 20px;
     background-color: rgb(255, 104, 48);
     border: 2px solid rgb(255, 115, 0);
-    border-radius: 2px;
-    font-size: 20px;
+    border-radius: 12px;
+    font-size: 30px;
+    color: white;
 }
 .orange-bg{
     background-color: orangered;
-    height: 20px;
+    height: 15px;
+    
 }

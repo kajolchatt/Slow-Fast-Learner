@@ -1,3 +1,18 @@
 .log{
     margin-right: 10%;
 }
+.container-fluid h4:hover{
+    color: orangered;
+    transform: scale(1.05);
+}
+.link-without-underline{
+    text-decoration: none;
+    color: inherit;
+}
+.link-without-underline:active {
+  color: orangered; /* Use the default text color for visited links and on hover */
+}
+
+.active-link {
+    color: orangered;
+  }

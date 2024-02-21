@@ -1,8 +1,19 @@
 .login {
-    text-align: center;
-    padding-top: 20px;
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  height: 750px;
+  width: 800px;
+  margin: 2% auto;
+  background-color: rgba(239, 239, 242, 0.82);
+  border: 20px solid 20px solid #c5c5c5; 
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  font-size: 30px;
   }
-  
+ .lo{
+    height: 600px;
+  }
   .login h1 {
     margin-bottom: 20px; 
     font-family: Arial, Helvetica, sans-serif;
@@ -41,6 +52,7 @@
     background-color: #ff7f00;
     color: #fff; 
     border: none;
+    margin-bottom: 10px;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
@@ -65,10 +77,10 @@ body {
   
   .login h1 {
     margin-bottom: 20px;
-    font-weight: 700;
+    font-weight: lighter;
     text-transform: uppercase; 
     letter-spacing: 2px; 
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
+    /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);  */
   }
   
   .form input,
@@ -140,3 +152,12 @@ body {
     font-family: 'Roboto', sans-serif; 
   }
 
+.links{
+  text-decoration: none;
+  margin-top: 2px;
+}
+.type-field{
+  width: 35%;
+  height: 25%;
+  color: gray;
+}
