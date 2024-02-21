@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import "../App.css";
+import "./Signup.css";
 import ImageBg from "./ImageBg";
 import Navbar from "./Navbar";
 import validator from "validator";
-import ModalWindowLoader from "./ModalWindowLoader";
+import "boxicons";
+
 function Signup() {
   const history = useNavigate();
   const [username, setEmail] = useState("");
@@ -84,12 +86,15 @@ function Signup() {
   }
   return (
     <>
+      <div
+        className="orange-bg"
+        style={{ backgroundColor: "orangered", height: "15px" }}
+      ></div>
       <Navbar />
       <ImageBg />
-      {/* <ModalWindowLoader/> */}
       <div className="login">
+        <box-icon name="user" color=" rgb(22, 22, 137)" size="lg"></box-icon>
         <h1>Signup</h1>
-
         <form action="POST" className="form">
           <input
             type="email"
@@ -99,7 +104,6 @@ function Signup() {
             placeholder="email"
           ></input>
           <br />
-          <br />
           <input
             type="password"
             onChange={(e) => {
@@ -108,7 +112,6 @@ function Signup() {
             placeholder="password"
           ></input>
           <br />
-          <br />
           <input
             type="text"
             onChange={(e) => {
@@ -116,7 +119,6 @@ function Signup() {
             }}
             placeholder="userId->FacultyId or Usn"
           ></input>
-          <br />
           <br />
 
           <select
@@ -133,11 +135,11 @@ function Signup() {
             <option value="Admin">Admin</option>
           </select>
           <br />
-          <br />
 
           {type === "Admin" && !otpSent && (
             <>
               <button onClick={generateAndSendOtp}>Generate OTP</button>
+              <br></br>
             </>
           )}
           {type === "Admin" && otpSent && (
@@ -149,15 +151,16 @@ function Signup() {
                 }}
                 placeholder="Enter OTP"
               />
+              <br></br>
             </>
           )}
 
           <input type="submit" onClick={submit} />
         </form>
-        <br />
         <p>OR</p>
-        <br />
-        <Link to="/login">Login page</Link>
+        <Link className="links" to="/login">
+          Login page
+        </Link>
       </div>
     </>
   );
