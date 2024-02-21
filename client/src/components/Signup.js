@@ -86,7 +86,6 @@ function Signup() {
     <>
       <Navbar />
       <ImageBg />
-      {/* <ModalWindowLoader/> */}
       <div className="login">
         <h1>Signup</h1>
 

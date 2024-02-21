@@ -35,7 +35,7 @@ function Start() {
     setTimeout(() => {
       setLoading(false);
       navigate("/signup");
-    }, 2000);
+    }, 200);
   };
   return (
     <>
@@ -49,7 +49,7 @@ function Start() {
       <button className="btn-next" onClick={handleNextClick}>
         Next
       </button>
-      {loading && <ModalWindowLoader loading={loading}/>}
+      {loading && <ModalWindowLoader loading={loading} />}
       {/* <RouteApp/> */}
     </>
   );
