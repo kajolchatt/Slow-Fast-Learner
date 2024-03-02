@@ -1,3 +1,4 @@
+
 const express = require('express');
 const app = express();
 
@@ -19,4 +20,3 @@ app.get('/otherpage', (req, res) => {
       res.render('otherpage', { data: results });
     });
   }); 
-  
