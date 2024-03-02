@@ -15,11 +15,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
   async function submit(e) {
     e.preventDefault();
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      history("/home");
-    }, 300);
+
     try {
       await axios
         .post("http://localhost:8000/login", {
@@ -38,11 +34,21 @@ function Login() {
             const userType = decodedToken.type;
             // const userType = res.data.token.type;
             if (userType === "Admin") {
-              history("/adminPage");
+              setLoading(true);
+              setTimeout(() => {
+                setLoading(false);
+                history("/adminPage");
+              }, 300);
+              // history("/adminPage");
             } else if (userType === "Student") {
-              history("/home", { username });
+              setLoading(true);
+              setTimeout(() => {
+                setLoading(false);
+                history("/home");
+              }, 300);
+              // history("/home", { username });
             } else {
-              history("/home");
+              // history("/home");
             }
           } else if (res.data === "notexist") {
             alert("User have not signed up!");
@@ -119,7 +125,7 @@ function Login() {
           }}
         ></div>
         <Link to="/forgetPassword" className="links">
-          Forget password ?
+          Forgot password ?
         </Link>
       </div>
     </>
